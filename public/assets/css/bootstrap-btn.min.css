@@ -2365,7 +2365,7 @@
   --bs-gray-800: #ff3131;
   --bs-gray-900: #0f172a;
   --bs-primary: #ff3131;
-  --bs-secondary: #e2e8f0;
+  --bs-secondary: #1d1c1c;
   --bs-success: #008008;
   --bs-info: #2FD8FE;
   --bs-warning: #ffc107;
@@ -2374,7 +2374,7 @@
   --bs-dark: #1e1e1f;
   --bs-white: #fff;
   --bs-primary-rgb: 139, 61, 255;
-  --bs-secondary-rgb: 73, 70, 70;
+  --bs-secondary-rgb: 18,18,18;
   --bs-success-rgb: 0, 128, 8;
   --bs-info-rgb: 13, 202, 240;
   --bs-warning-rgb: 255, 193, 7;
@@ -3119,7 +3119,7 @@ progress {
   width: 100%;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 375px) {
 
   .container,
   .container-sm {
@@ -3455,7 +3455,7 @@ progress {
   --bs-gutter-y: 6rem;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 375px) {
   .col-sm {
     flex: 1 0 0%;
   }
@@ -6716,7 +6716,7 @@ fieldset:disabled .btn {
   right: 0;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 375px) {
   .dropdown-menu-sm-start {
     --bs-position: start;
   }
@@ -7378,7 +7378,7 @@ fieldset:disabled .btn {
   overflow-y: auto;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 375px) {
   .navbar-expand-sm {
     flex-wrap: nowrap;
     justify-content: flex-start;
@@ -7892,7 +7892,7 @@ fieldset:disabled .btn {
   margin-bottom: var(--bs-card-group-margin);
 }
 
-@media (min-width: 576px) {
+@media (min-width: 375px) {
   .card-group {
     display: flex;
     flex-flow: row wrap;
@@ -8736,7 +8736,7 @@ fieldset:disabled .btn {
   margin-left: calc(var(--bs-list-group-border-width) * -1);
 }
 
-@media (min-width: 576px) {
+@media (min-width: 375px) {
   .list-group-horizontal-sm {
     flex-direction: row;
   }
@@ -9296,7 +9296,7 @@ fieldset:disabled .btn {
   margin: calc(var(--bs-modal-footer-gap) * 0.5);
 }
 
-@media (min-width: 576px) {
+@media (min-width: 375px) {
   .modal {
     --bs-modal-margin: 1.75rem;
     --bs-modal-box-shadow: 0 0.5rem 1rem rgba(2, 6, 23, 0.15);
@@ -10160,7 +10160,7 @@ fieldset:disabled .btn {
   }
 }
 
-@media (min-width: 576px) {
+@media (min-width: 375px) {
   .offcanvas-sm {
     --bs-offcanvas-height: auto;
     --bs-offcanvas-border-width: 0;
@@ -11015,7 +11015,7 @@ fieldset:disabled .btn {
   bottom: 0;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 375px) {
   .sticky-sm-top {
     position: sticky;
     top: 0;
@@ -11575,7 +11575,7 @@ fieldset:disabled .btn {
 
 .border-secondary {
   --bs-border-opacity: 1;
-  --bs-secondary: #494646;
+  --bs-secondary: #121212;
   border-color: rgba(var(--bs-secondary-rgb),
       var(--bs-border-opacity))  ;
   --bs-border-color: var(--bs-secondary);
@@ -15949,7 +15949,7 @@ fieldset:disabled .btn {
   }
 }
 
-@media (min-width: 576px) {
+@media (min-width: 375px) {
   .float-sm-start {
     float: left  ;
   }

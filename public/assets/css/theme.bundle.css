@@ -531,39 +531,91 @@ progress {
   font-size: 1rem;
   font-weight: 300;
 }
+
 .display-1 {
-  font-size: 5rem;
+  font-size: calc(1.625rem + 4.5vw);
+  font-weight: 700;
+  line-height: 1.25;
 }
-.display-1,
+
+@media (min-width: 1200px) {
+  .display-1 {
+    font-size: 5rem;
+  }
+}
+
 .display-2 {
-  font-weight: 580;
-  line-height: 1.2;
+  font-size: calc(1.575rem + 3.9vw);
+  font-weight: 700;
+  line-height: 1.25;
 }
-.display-2 {
-  font-size: 4.5rem;
+
+@media (min-width: 1200px) {
+  .display-2 {
+    font-size: 4.5rem;
+  }
 }
+
 .display-3 {
-  font-size: 4rem;
+  font-size: calc(1.525rem + 3.3vw);
+  font-weight: 700;
+  line-height: 1.25;
 }
-.display-3,
+
+@media (min-width: 1200px) {
+  .display-3 {
+    font-size: 4rem;
+  }
+}
+
 .display-4 {
-  font-weight: 580;
-  line-height: 1.2;
+  font-size: calc(1.475rem + 2.7vw);
+  font-weight: 700;
+  line-height: 1.25;
 }
-.display-4 {
-  font-size: 3.5rem;
+
+@media (min-width: 1200px) {
+  .display-4 {
+    font-size: 3.5rem;
+  }
 }
+
 .display-5 {
-  font-size: 3rem;
+  font-size: calc(1.425rem + 2.1vw);
+  font-weight: 700;
+  line-height: 1.25;
 }
-.display-5,
+
+@media (min-width: 1200px) {
+  .display-5 {
+    font-size: 2.3rem;
+  }
+}
+
 .display-6 {
-  font-weight: 580;
-  line-height: 1.2;
+  font-size: calc(1.375rem + 1.5vw);
+  font-weight: 700;
+  line-height: 1.25;
 }
-.display-6 {
-  font-size: 2.5rem;
+
+@media (min-width: 1200px) {
+  .display-6 {
+    font-size: 2rem;
+  }
 }
+
+.display-7 {
+  font-size: calc(1.375rem + 1.5vw);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+@media (min-width: 1200px) {
+  .display-7 {
+    font-size: 1.6rem;
+  }
+}
+
 .list-inline,
 .list-unstyled {
   list-style: none;

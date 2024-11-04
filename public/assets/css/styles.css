@@ -1,233 +1,251 @@
 .container {
-    position: absolute;
-    left: 0;
+  position: absolute;
+  left: 0;
 }
 
 .whole-content {
-    margin-left: 0 !important;
+  margin-left: 0 !important;
 }
 
 .content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .content-text {
-    max-width: 770px !important;
-    display: flex;
-    flex-direction: column;
+  max-width: 770px !important;
+  display: flex;
+  flex-direction: column;
 }
 
 .sub-text {
-    width: 62%;
-    text-align: center;
-    align-self: center;
-    font-size: 22.3px;
+  width: 62%;
+  text-align: center;
+  align-self: center;
+  font-size: 22.3px;
 }
 
 .question-header {
-    font-size: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-weight: bold;
+  font-size: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: bold;
 }
 
 a {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-a span{
-    cursor: text;
+a span {
+  cursor: text;
 }
 
 .btns-sect {
-    display: flex;
-    width: 100%;
-    justify-content: center;
+  display: flex;
+  width: 100%;
+  justify-content: center;
 }
 
-.btns-sect button{
-    margin-inline: .5rem;
-    width: 100%;
+.btns-sect button {
+  margin-inline: 0.5rem;
+  width: 100%;
 }
 
 .primary {
-    background: #8b3dff !important;
+  background: #8b3dff !important;
 }
 
 .primary:hover {
-    background: #fff !important;
-    color: #8b3dff !important;
+  background: #fff !important;
+  color: #8b3dff !important;
 }
 
 .grey {
-    background: #d9d9d9 !important;
-    color: #8b3dff !important;
-    border: none !important;
+  background: #d9d9d9 !important;
+  color: #8b3dff !important;
+  border: none !important;
 }
 
 .grey:hover {
-    color: #8b3dff !important;
-    background: #fff !important;
+  color: #8b3dff !important;
+  background: #fff !important;
 }
 
 .mainNav {
-    width: 100%;
+  width: 100%;
 }
 
 .nav-bar {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
 
 .q-form {
-    min-height: 376px;
+  min-height: 376px;
 }
 
 .sidebar-heading {
-    display: grid;
-    justify-items: center;
+  display: grid;
+  justify-items: center;
 }
 
 .rotate-180 {
-    transform: rotate(180deg);
-    transition: 0.1s ease-in-out;
+  transform: rotate(180deg);
+  transition: 0.1s ease-in-out;
 }
 
 .rotate-0 {
-    transform: rotate(0deg);
-    transition: 0.1s ease-in-out;
+  transform: rotate(0deg);
+  transition: 0.1s ease-in-out;
 }
 
 .profile {
-    max-height: 25rem !important;
+  max-height: 25rem !important;
 }
 
 .list-style-dot {
-    list-style: disc;
+  list-style: disc;
 }
 
 .side-card {
-    min-height: 525px !important;
-    max-height: 525px !important;
+  min-height: 525px !important;
+  max-height: 525px !important;
 }
 
 .side-card img {
-    min-height: 525px !important;
-    max-height: 525px !important;
+  min-height: 525px !important;
+  max-height: 525px !important;
 }
 
-.hover-danger{
-    color: #fff !important;
+.hover-danger {
+  color: #fff !important;
 }
 
 .hover-danger:hover {
-    color: #ff3131 !important;
+  color: #ff3131 !important;
 }
 
 .hover-info:hover {
-    color: #0dcaf0 !important;
+  color: #0dcaf0 !important;
 }
 
 .hover-white:hover {
-    color: #fff !important;
+  color: #fff !important;
 }
 
 .bg-gradient-down {
-    background: linear-gradient(to bottom, #000000ed, #00000000, #00000000, #00000000, #00000000);
+  background: linear-gradient(
+    to bottom,
+    #000000ed,
+    #00000000,
+    #00000000,
+    #00000000,
+    #00000000
+  );
 }
 
 .bg-gradient-cover {
-    background: linear-gradient(to bottom, #000000a8, #f9d42300, #f9d42300, #f9d42300, #00000082);
+  background: linear-gradient(
+    to bottom,
+    #000000a8,
+    #f9d42300,
+    #f9d42300,
+    #f9d42300,
+    #00000082
+  );
 }
 
 .bg-gradient-top {
-    background: linear-gradient(to top, #000000ed, #00000000, #00000000);
+  background: linear-gradient(to top, #000000ed, #00000000, #00000000);
 }
 
-.card-action-btn{
-    border: none;
-    outline: none;
-    transition: 0.5s;
-    overflow: hidden;
-    cursor: pointer;
-    opacity: 0;
+.card-action-btn {
+  border: none;
+  outline: none;
+  transition: 0.5s;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0;
 }
 
-.product-card:hover .card-action-btn{
-    opacity: 1;
-    pointer-events: all;
+.product-card:hover .card-action-btn {
+  opacity: 1;
+  pointer-events: all;
 }
 
 @media only screen and (max-width: 767px) {
-    .chat-app .chat-history {
-        height: 300px;
-        overflow-x: auto
-    }
+  .chat-app .chat-history {
+    height: 300px;
+    overflow-x: auto;
+  }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 992px) {
-    .chat-app .chat-list {
-        height: 650px;
-        overflow-x: auto
-    }
-    .chat-app .chat-history {
-        height: 600px;
-        overflow-x: auto
-    }
+  .chat-app .chat-list {
+    height: 650px;
+    overflow-x: auto;
+  }
+  .chat-app .chat-history {
+    height: 600px;
+    overflow-x: auto;
+  }
 }
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 1) {
-    .chat-app .chat-list {
-        height: 480px;
-        overflow-x: auto
-    }
-    .chat-app .chat-history {
-        height: calc(100vh - 350px);
-        overflow-x: auto
-    }
+  .chat-app .chat-list {
+    height: 480px;
+    overflow-x: auto;
+  }
+  .chat-app .chat-history {
+    height: calc(100vh - 350px);
+    overflow-x: auto;
+  }
 }
 
 :focus-visible {
-    -webkit-appearance: none !important;
-    outline: none;
+  -webkit-appearance: none !important;
+  outline: none;
 }
 
 .hero-bg-image {
-    background: url(/assets/img/Hero_Section_Image.jpg) no-repeat fixed;
-    height: 100%;
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background: url(/assets/img/Hero_Section_Image.jpg) no-repeat fixed;
+  height: 100%;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .slider {
-    display: flex;
-    flex-direction: row;
-    animation: slide 10s linear infinite;
+  display: flex;
+  flex-direction: row;
+  animation: slide 10s linear infinite;
 }
 
 .slide {
-    min-width: 200px; /* Adjust width based on your content */
-    height: 100%; /* Fills the container */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    white-space: nowrap; /* Prevent text wrapping */
+  min-width: 200px; /* Adjust width based on your content */
+  height: 100%; /* Fills the container */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  white-space: nowrap; /* Prevent text wrapping */
 }
 
 @keyframes slide {
-    from {
-        transform: translateX(0); /* Start position */
-    }
-    to {
-        transform: translateX(-50%); /* Move left half of total content */
-    }
+  from {
+    transform: translateX(0); /* Start position */
+  }
+  to {
+    transform: translateX(-50%); /* Move left half of total content */
+  }
+}
+
+.shadow-inner {
+  box-shadow: inset 0px 0px 11px 3px #000;
 }

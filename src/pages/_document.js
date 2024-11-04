@@ -7,6 +7,12 @@ export default function Document() {
         <link rel="icon" type="" href="/logo.png" />
 
         <link rel="stylesheet" href="/assets/css/styles.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet"
+        />
         {/* <link rel="stylesheet" href="/assets/css/bootstrap-btn.min.css" /> */}
         <link
           rel="stylesheet"
