@@ -195,8 +195,8 @@ a span{
     outline: none;
 }
 
-.main-bg {
-    background: url(../../../../background.jpg) no-repeat fixed;
+.hero-bg-image {
+    background: url(/assets/img/Hero_Section_Image.jpg) no-repeat fixed;
     height: 100%;
     background-position: center top;
     background-repeat: no-repeat;
@@ -204,4 +204,30 @@ a span{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.slider {
+    display: flex;
+    flex-direction: row;
+    animation: slide 10s linear infinite;
+}
+
+.slide {
+    min-width: 200px; /* Adjust width based on your content */
+    height: 100%; /* Fills the container */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+@keyframes slide {
+    from {
+        transform: translateX(0); /* Start position */
+    }
+    to {
+        transform: translateX(-50%); /* Move left half of total content */
+    }
 }
