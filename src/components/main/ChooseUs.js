@@ -35,23 +35,23 @@ const cards = [
 const ChooseUs = () => {
   return (
     <>
-      <section className="p-lg-10 py-10">
-        <div className="d-flex align-items-center">
-          <div className="row m-0">
+      <section className="p-lg-10 py-md-8 py-5 row m-0">
+        <div className="d-flex flex-md-row flex-column align-items-center px-2">
+          <div className="row m-0 flex-md-row flex-column align-items-center">
             <p className="bg-primary rounded-5 p-2 bg-opacity-25 d-flex align-items-center col-auto">
               <i className="bx bxs-circle fs-sm" />
               &nbsp; Why Choose Us?
             </p>
-            <p className="text-uppercase fs-6">
+            <p className="text-uppercase text-md-start text-center fs-6">
               Building Trust, One Project at a Time
             </p>
-            <p className="col-lg-4 pe-lg-9 fs-6">
+            <p className="col-lg-4 pe-lg-9 fs-6 text-md-start text-center">
               Choosing Projects means partnering with a team committed to
               delivering excellence.
             </p>
           </div>
           <a
-            className="btn btn-info text-black rounded col-lg-2 col-md-3 col-6 ms-3 fw-bold my-2"
+            className="btn btn-info text-black rounded col-lg-2 col-auto ms-3 fw-bold my-2"
             href="./#contact-us"
           >
             Get in touch right away
@@ -60,7 +60,7 @@ const ChooseUs = () => {
         </div>
         <div className="row m-0">
           {cards.map((card) => (
-            <div key={card.id} className="col-lg-3 col-6 p-3 h-100">
+            <div key={card.id} className="col-lg-3 col-md-6 p-3">
               <div className="card rounded-0 h-100">
                 <div className="card-header border-0">
                   <Image

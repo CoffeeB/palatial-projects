@@ -1,8 +1,10 @@
+import Image from "next/image";
+
 export default function ServiceCard({ title, imgSrc, index, description }) {
   return (
-    <div className="card mb-3 border-0 border-bottom rounded-0">
+    <div className="card mb-7 border-0 border-bottom rounded-0">
       <div
-        className="card-header hover-overlay border-0"
+        className="card-header accordion-header accordion-button hover-overlay border-0 collapsed"
         id={`heading${index}`}
         data-bs-toggle="collapse"
         data-bs-target={`#collapse${index}`}
@@ -25,18 +27,20 @@ export default function ServiceCard({ title, imgSrc, index, description }) {
         <h5 className="mb-0">{title}</h5>
       </div>
       {/* Image displayed above the collapsible content */}
-      <div>
-        <img
+      <div className=" position-absolute translate-middle-y end-0 z-2">
+        <Image
           src={imgSrc}
           alt={title}
-          className={`img-fluid position-absolute avatar avatar-xl translate-middle image-${index}`}
+          width={1080}
+          height={1080}
+          className={`img-fluid image-${index}`}
           style={{
-            top: 0,
-            left: 0,
             borderRadius: "0.25rem",
             objectFit: "cover",
             opacity: 0,
             transition: "opacity 0.3s",
+            width: "150px",
+            height: "150px",
           }}
         />
       </div>
@@ -46,7 +50,7 @@ export default function ServiceCard({ title, imgSrc, index, description }) {
         aria-labelledby={`heading${index}`}
         data-bs-parent="#servicesAccordion"
       >
-        <div className="card-body">
+        <div className="card-body pt-0">
           <div className="mt-3">{description}</div>
         </div>
       </div>

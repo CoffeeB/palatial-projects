@@ -1,6 +1,11 @@
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const Nav = () => {
+  const router = useRouter();
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-black border-bottom position-fixed w-100 py-3 px-md-8 z-3">
       <div className="row d-flex m-0 w-100">
@@ -28,27 +33,28 @@ const Nav = () => {
         </button>
         <div className="collapse navbar-collapse col-8" id="navbarNav">
           <ul className="navbar-nav ms-auto">
-            {["About Us", "Our Services", "Portfolio", "Contact Us"].map(
-              (link, index) => (
-                <li className="nav-item" key={index}>
-                  <a
-                    className="nav-link"
-                    href={`./#${link.replace(" ", "-").toLowerCase()}`}
-                  >
-                    {link}
-                  </a>
-                </li>
-              )
-            )}
+            {["home"].map((link, index) => (
+              <li className="nav-item" key={index}>
+                <Link
+                  className={`nav-link text-capitalize ${
+                    router.pathname === `/admin/${link}` ? "active" : ""
+                  } `}
+                  href={`/admin/${link.replace(" ", "-").toLowerCase()}`}
+                >
+                  {link}
+                </Link>
+              </li>
+            ))}
           </ul>
-          <a
-            className="btn btn-info p-2 fw-normal rounded text-black"
-            href="./#contact-us"
+          <button
+            type="button"
+            className="btn btn-danger p-2 fw-normal rounded text-white d-flex align-items-center"
+            href="#"
             role="button"
           >
-              Get in touch right away
-            <i className="bx bx-chevron-right"></i>
-          </a>
+            Log-out&nbsp;
+            <i className="bx bx-log-out" />
+          </button>
         </div>
       </div>
     </nav>

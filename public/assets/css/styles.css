@@ -249,3 +249,21 @@ a span {
 .shadow-inner {
   box-shadow: inset 0px 0px 11px 3px #000;
 }
+
+@media (max-width: 1440px) {
+  .footer-text {
+    font-size: 150px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-text {
+    font-size: 78px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer-text {
+    font-size: 42px !important;
+  }
+}

@@ -3,8 +3,8 @@ import React from "react";
 const HeroSection = () => {
   return (
     <div className="d-flex vh-100 hero-bg-image">
-      <div className="my-auto px-lg-8 h-100 w-100 bg-black bg-opacity-75">
-        <div className="row flex-column m-0 mt-10 mb-5">
+      <div className="my-auto px-lg-8 h-100 w-100 bg-black bg-opacity-75 d-flex">
+        <div className="row flex-column m-auto">
           <h1 className="fw-medium display-3 col-lg-6 col-md-9 pt-10 pe-lg-7 mt-5">
             Excellence in Every Detail, From Concept to Completion
           </h1>

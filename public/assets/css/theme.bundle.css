@@ -98,7 +98,7 @@
   --bs-secondary-bg-rgb: 219, 221, 225;
   --bs-tertiary-color: #b9bdc6;
   --bs-tertiary-color-rgb: 185, 189, 198;
-  --bs-tertiary-bg: #f7f7f8;
+  --bs-tertiary-bg: #232323;
   --bs-tertiary-bg-rgb: 247, 247, 248;
   --bs-heading-color: inherit;
   --bs-link-color: #2FD8FE;
@@ -146,7 +146,7 @@
   --bs-secondary-bg-rgb: 57, 62, 70;
   --bs-tertiary-color: #505662;
   --bs-tertiary-color-rgb: 80, 86, 98;
-  --bs-tertiary-bg: #22252a;
+  --bs-tertiary-bg: #232323;
   --bs-tertiary-bg-rgb: 34, 37, 42;
   --bs-primary-text-emphasis: #69f;
   --bs-secondary-text-emphasis: #fbd76a;
@@ -3392,9 +3392,9 @@ textarea.form-control.is-invalid {
   }
 }
 .btn:hover {
-  background-color: var(--bs-btn-hover-bg);
+  background-color: var(--bs-btn-hover-bg) !important;
   border-color: var(--bs-btn-hover-border-color);
-  color: var(--bs-btn-hover-color);
+  color: var(--bs-btn-hover-color) !important;
 }
 .btn-check + .btn:hover {
   background-color: var(--bs-btn-bg);
@@ -9443,27 +9443,35 @@ fieldset:disabled .btn {
 .fst-normal {
   font-style: normal !important;
 }
+
 .fw-lighter {
   font-weight: lighter !important;
 }
+
 .fw-light {
   font-weight: 300 !important;
 }
+
 .fw-normal {
-  font-weight: 380 !important;
+  font-weight: 400 !important;
 }
+
 .fw-medium {
   font-weight: 500 !important;
 }
+
 .fw-semibold {
-  font-weight: 580 !important;
+  font-weight: 600 !important;
 }
+
 .fw-bold {
   font-weight: 700 !important;
 }
+
 .fw-bolder {
-  font-weight: 800 !important;
+  font-weight: bolder !important;
 }
+
 .lh-1 {
   line-height: 1 !important;
 }
@@ -10229,6 +10237,35 @@ fieldset:disabled .btn {
 .z-3 {
   z-index: 3 !important;
 }
+
+.ls-xs {
+  letter-spacing: -0.08em !important;
+}
+
+.ls-sm {
+  letter-spacing: -0.04em !important;
+}
+
+.ls-base {
+  letter-spacing: 0  ;
+}
+
+.ls-md {
+  letter-spacing: 0.1em !important;
+}
+
+.ls-lg {
+  letter-spacing: 0.15em !important;
+}
+
+.ls-xl {
+  letter-spacing: 0.2em !important;
+}
+
+.ls-xxl {
+  letter-spacing: 0.25em !important;
+}
+
 @media (min-width: 576px) {
   .float-sm-start {
     float: left !important;
