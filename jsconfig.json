@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",  // Make sure baseUrl is set to the project root
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["src/*"],  // Map @/ to the src directory
+      "@/lib/*": ["src/lib/*"] // Explicit mapping for lib
     }
   }
 }

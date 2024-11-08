@@ -2,9 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import Cookies from "js-cookie";
 
 const Nav = () => {
   const router = useRouter();
+
+  const handleLogout = () => {
+    Cookies.remove("loggedIn");
+    router.push("/admin/login");
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-black border-bottom position-fixed w-100 py-3 px-md-8 z-3">
@@ -17,6 +23,7 @@ const Nav = () => {
               width={1080}
               height={1080}
               style={{ height: "50px", width: "200px" }}
+              priority={"high"}
             />
           </a>
         </div>
@@ -48,6 +55,7 @@ const Nav = () => {
           </ul>
           <button
             type="button"
+            onClick={() => handleLogout()}
             className="btn btn-danger p-2 fw-normal rounded text-white d-flex align-items-center"
             href="#"
             role="button"

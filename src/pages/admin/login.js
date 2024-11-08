@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { enqueueSnackbar } from "notistack"; // assuming you're using notistack for snackbar
+import Cookies from "js-cookie";
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
   const handleLogin = async (e) => {
@@ -16,23 +19,43 @@ export default function AdminLogin() {
     // Basic client-side validation
     if (!email || !password) {
       setError("Please enter both email and password.");
+      enqueueSnackbar("Please enter both email and password", {
+        variant: "info",
+      });
       setIsLoading(false);
       return;
     }
 
     try {
-      // TODO: Replace with actual login API call
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulating API call
+      // Send a POST request to the login API route
+      const res = await fetch("/api/adminLogin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-      // Placeholder login logic (replace with actual authentication)
-      if (email === "admin@example.com" && password === "password") {
-        // Successful login
-        router.push("/admin/dashboard");
-      } else {
-        setError("Invalid email or password.");
+      // Check if the response status is OK
+      if (!res.ok) {
+        // If status is not OK (like 4xx or 5xx), throw an error
+        const data = await res.json();
+        throw new Error(data.error || "An error occurred during login.");
       }
+
+      // Parse the successful response
+
+      const data = await res.json();
+      // Successful login
+      enqueueSnackbar("Login successful!", { variant: "success" });
+      Cookies.set("loggedIn", "true");
+      router.push("/admin/");
     } catch (err) {
-      setError("An error occurred. Please try again.");
+      // If an error occurs, show the error message
+      setError(err.message || "An error occurred. Please try again.");
+      enqueueSnackbar(err.message || "An error occurred. Please try again.", {
+        variant: "error",
+      });
     } finally {
       setIsLoading(false);
     }
@@ -60,7 +83,7 @@ export default function AdminLogin() {
                 id="email"
                 type="email"
                 className="form-control bg-transparent border"
-                placeholder="admin@example.com"
+                placeholder="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -69,14 +92,22 @@ export default function AdminLogin() {
               <label htmlFor="password" className="form-label text-dark">
                 Password
               </label>
-              <input
-                id="password"
-                type="password"
-                placeholder="password"
-                className="form-control bg-transparent border"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <div className="position-relative">
+                <input
+                  id="password"
+                  type={`${showPassword ? "text" : "password"}`}
+                  placeholder="password"
+                  className="form-control bg-transparent border"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <i
+                  className={`bx ${
+                    showPassword ? "bxs-hide" : "bxs-show"
+                  } position-absolute end-0 top-50 translate-middle-y fs-5 me-1`}
+                  onClick={() => setShowPassword(!showPassword)}
+                />
+              </div>
             </div>
             {error && (
               <div
