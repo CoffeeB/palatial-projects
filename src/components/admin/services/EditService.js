@@ -12,7 +12,7 @@ export default function EditService({
 
   // Local state for title and description, initially set to the service's current values
   const [editedService, setEditedService] = useState({
-    id: service._id,
+    _id: service._id,
     title: service.title,
     description: service.description,
   });
@@ -20,7 +20,7 @@ export default function EditService({
   useEffect(() => {
     // When the service prop changes (in case it's passed a different service for editing)
     setEditedService({
-      id: service._id,
+      _id: service._id,
       title: service.title,
       description: service.description,
     });

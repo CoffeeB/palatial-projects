@@ -39,7 +39,7 @@ export default async function handler(req, res) {
 
         res.status(201).json({
           success: true,
-          data: { ...req.body, id: result.insertedId },
+          data: { ...req.body, _id: result.insertedId.toString() },
         });
       } catch (error) {
         console.error(error);
@@ -68,20 +68,16 @@ export default async function handler(req, res) {
             .json({ success: false, message: "Portfolio section not found" });
         }
 
-        res
-          .status(200)
-          .json({
-            success: true,
-            message: "Portfolio section deleted successfully",
-          });
+        res.status(200).json({
+          success: true,
+          message: "Portfolio section deleted successfully",
+        });
       } catch (error) {
         console.error(error);
-        res
-          .status(500)
-          .json({
-            success: false,
-            message: "Failed to delete portfolio section",
-          });
+        res.status(500).json({
+          success: false,
+          message: "Failed to delete portfolio section",
+        });
       }
       break;
 
@@ -89,12 +85,10 @@ export default async function handler(req, res) {
       // Handle PATCH request to remove an image from a portfolio section
       const { sectionId, imageUrl } = req.body;
       if (!sectionId || !ObjectId.isValid(sectionId) || !imageUrl) {
-        return res
-          .status(400)
-          .json({
-            success: false,
-            message: "Invalid data: sectionId and imageUrl are required",
-          });
+        return res.status(400).json({
+          success: false,
+          message: "Invalid data: sectionId and imageUrl are required",
+        });
       }
       try {
         const result = await db
@@ -105,20 +99,16 @@ export default async function handler(req, res) {
           );
 
         if (result.modifiedCount === 0) {
-          return res
-            .status(404)
-            .json({
-              success: false,
-              message: "Portfolio section not found or image not removed",
-            });
+          return res.status(404).json({
+            success: false,
+            message: "Portfolio section not found or image not removed",
+          });
         }
 
-        res
-          .status(200)
-          .json({
-            success: true,
-            message: "Image removed from portfolio section",
-          });
+        res.status(200).json({
+          success: true,
+          message: "Image removed from portfolio section",
+        });
       } catch (error) {
         console.error(error);
         res
@@ -136,13 +126,11 @@ export default async function handler(req, res) {
           .json({ success: false, message: "Invalid or missing section ID" });
       }
       if (!title && !year && !location && !images) {
-        return res
-          .status(400)
-          .json({
-            success: false,
-            message:
-              "At least one field (title, year, location, images) must be provided to update",
-          });
+        return res.status(400).json({
+          success: false,
+          message:
+            "At least one field (title, year, location, images) must be provided to update",
+        });
       }
 
       try {
@@ -157,12 +145,10 @@ export default async function handler(req, res) {
           .updateOne({ _id: new ObjectId(updateId) }, { $set: updateFields });
 
         if (result.modifiedCount === 0) {
-          return res
-            .status(404)
-            .json({
-              success: false,
-              message: "Portfolio section not found or no changes made",
-            });
+          return res.status(404).json({
+            success: false,
+            message: "Portfolio section not found or no changes made",
+          });
         }
 
         res.status(200).json({
@@ -171,12 +157,10 @@ export default async function handler(req, res) {
         });
       } catch (error) {
         console.error(error);
-        res
-          .status(500)
-          .json({
-            success: false,
-            message: "Failed to update portfolio section",
-          });
+        res.status(500).json({
+          success: false,
+          message: "Failed to update portfolio section",
+        });
       }
       break;
 

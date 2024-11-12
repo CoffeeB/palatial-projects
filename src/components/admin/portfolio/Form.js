@@ -36,16 +36,19 @@ const PortfolioForm = ({ setIsAddingSection, addSection }) => {
 
     setUploading(true);
     try {
-      // Assuming addPortfolioToDb sends the data to MongoDB
       const response = await addPortfolioToDb(portfolioData);
-      if (response.success) {
+
+      if (response?.success) {
+        // Safely check if 'response' is defined
         enqueueSnackbar("Portfolio added successfully!", {
           variant: "success",
         });
         addSection(response.data); // Add portfolio section to the list in parent
         handleCancel(); // Reset the form after successful submission
       } else {
-        enqueueSnackbar("Error adding portfolio", { variant: "error" });
+        enqueueSnackbar(response?.message || "Error adding portfolio", {
+          variant: "error",
+        });
       }
     } catch (error) {
       console.log("Error uploading portfolio", error);

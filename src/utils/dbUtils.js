@@ -11,15 +11,16 @@ export const addPortfolioToDb = async (portfolioData) => {
     const data = await response.json();
     if (response.ok) {
       console.log("Portfolio added successfully:", data);
-      // Do something with the response data, e.g., add to the UI
-      return data;
+      return { success: true, data }; // Always return success: true
     } else {
       console.error("Error adding portfolio:", data.message);
+      return {
+        success: false,
+        message: data.message || "Error adding portfolio",
+      }; // Always return an object
     }
   } catch (error) {
     console.error("Error in addPortfolioToDb:", error);
-
-    // Return a more detailed error message
     return {
       success: false,
       message: error.message || "Error submitting portfolio",
@@ -69,7 +70,9 @@ export const deleteService = async (id) => {
     const result = await response.json();
 
     if (result.success) {
-      return result.message; // Success message
+      return { success: true, message: result.message }; // Ensure a consistent response
+    } else {
+      return { success: false, message: result.message }; // Handle unsuccessful response
     }
   } catch (error) {
     console.error("Error deleting service:", error);
@@ -113,7 +116,7 @@ export const addService = async (newService) => {
     const result = await response.json();
 
     if (result.success) {
-      return { success: true, message: result.message }; // Ensure a consistent response
+      return { success: true, message: result.message, data: result.data }; // Ensure a consistent response
     } else {
       return { success: false, message: result.message }; // Handle unsuccessful response
     }

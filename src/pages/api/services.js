@@ -46,7 +46,7 @@ export default async function handler(req, res) {
             message: "Service added successfully", // success message
             data: {
               ...req.body,
-              id: result.insertedId.toString(), // Make sure the ID is a string
+              _id: result.insertedId.toString(), // Make sure the ID is a string
             },
           });
         } else {

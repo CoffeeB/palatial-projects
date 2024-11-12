@@ -51,9 +51,13 @@ export default function ServicesManagement() {
     setIsLoading(true);
     try {
       const addedService = await addService(newService);
-      if (addedService?.success === "true") {
-        setServices([...services, addedService.data]);
-        enqueueSnackbar("Service added successfully!", { variant: "success" });
+      console.log("added service, ", addedService);
+      if (addedService?.success) {
+        setServices([...services, addedService?.data]);
+        enqueueSnackbar(
+          addedService?.message || "Service added successfully!",
+          { variant: "success" }
+        );
       } else {
         enqueueSnackbar(addedService?.message || "Failed to add service", {
           variant: "error",
@@ -80,11 +84,13 @@ export default function ServicesManagement() {
             onClick={async () => {
               try {
                 const response = await deleteService(id);
-                if (response?.success === "true") {
+                console.log("remove response, ", response);
+                if (response?.success) {
                   setServices(services.filter((service) => service._id !== id));
                   enqueueSnackbar("Service removed successfully!", {
                     variant: "success",
                   });
+                  setIsEditing(null);
                 } else {
                   enqueueSnackbar(
                     response?.data?.message || "Failed to removed service",
@@ -140,21 +146,24 @@ export default function ServicesManagement() {
             onClick={async () => {
               try {
                 const response = await updateService(
-                  updatedService.id,
+                  updatedService._id,
                   updatedService.title,
                   updatedService.description
                 );
                 if (response?.success) {
                   setServices(
                     services.map((service) =>
-                      service._id === updatedService.id
+                      service._id === updatedService._id
                         ? updatedService
                         : service
                     )
                   );
-                  enqueueSnackbar("Service updated successfully!", {
-                    variant: "success",
-                  });
+                  enqueueSnackbar(
+                    response?.message || "Service updated successfully!",
+                    {
+                      variant: "success",
+                    }
+                  );
                   setIsEditing(null);
                 } else {
                   enqueueSnackbar(

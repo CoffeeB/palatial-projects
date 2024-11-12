@@ -42,8 +42,8 @@ const Nav = () => {
             )}
           </ul>
           <a
-            className="btn btn-info p-2 fw-normal rounded text-black"
-            href="./#contact-us"
+            className="btn btn-info p-2 fw-normal rounded text-black d-flex align-items-center"
+            href="#contact-us"
             role="button"
           >
             <span className="text-black">Get in touch right away</span>

@@ -9,10 +9,11 @@ const PortfolioManager = () => {
   const [sortOrder, setSortOrder] = useState("latest");
   const [searchQuery, setSearchQuery] = useState("");
   const [isEditing, setIsEditing] = useState(false);
+  const [stopFetch, setStopFetch] = useState(false);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   useEffect(() => {
-    if (sections.length > 0) return;
+    if (sections.length > 0 || stopFetch) return;
     const fetchPortfolioData = async () => {
       try {
         const response = await fetch("/api/portfolio", {
@@ -25,6 +26,7 @@ const PortfolioManager = () => {
 
         if (Array.isArray(result.data)) {
           setSections(result.data);
+          setStopFetch(true);
         } else {
           console.error("Data is not an array:", result);
         }
@@ -57,16 +59,9 @@ const PortfolioManager = () => {
     });
 
   // Add a new portfolio section
-  const addSection = (title, year, location, images) => {
-    const newSection = {
-      id: Date.now().toString(),
-      title,
-      year,
-      location,
-      images,
-    };
-
-    setSections([...sections, newSection]);
+  const addSection = (newSection) => {
+    console.log("ap--r ", newSection);
+    setSections([...sections, newSection?.data]);
     setIsAddingSection(false);
     enqueueSnackbar("New portfolio section added!", { variant: "success" });
   };

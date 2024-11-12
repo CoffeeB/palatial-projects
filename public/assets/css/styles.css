@@ -267,3 +267,25 @@ a span {
     font-size: 42px !important;
   }
 }
+
+/* Add this to your global CSS or a component-specific stylesheet */
+
+/* Animation class to be added when the element is in view */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.3s ease-out forwards;
+  opacity: 0;
+  transform: translateY(100px);
+}
+
+/* You can adjust the animation timing, delay, etc., to suit your needs */
