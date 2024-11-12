@@ -14,11 +14,11 @@ const HeroSection = () => {
             meets precision.
           </p>
           <a
-            className="btn btn-info text-black rounded col-lg-2 col-md-3 col-6 ms-3 fw-bold my-2"
+            className="btn btn-info rounded col-lg-2 col-md-3 col-6 ms-3 fw-bold my-2"
             href="./#contact-us"
           >
-            Book free consultation
-            <i className="bx bx-chevron-right" />
+            <span className="text-black">Book free consultation</span>
+            <i className="bx bx-chevron-right text-black" />
           </a>
         </div>
       </div>

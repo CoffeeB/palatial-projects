@@ -46,8 +46,8 @@ const Nav = () => {
             href="./#contact-us"
             role="button"
           >
-              Get in touch right away
-            <i className="bx bx-chevron-right"></i>
+            <span className="text-black">Get in touch right away</span>
+            <i className="bx bx-chevron-right text-black" />
           </a>
         </div>
       </div>

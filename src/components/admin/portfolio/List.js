@@ -1,27 +1,18 @@
 import { useState, useEffect } from "react";
 import EditableSection from "./EditableSection";
 import { useSnackbar } from "notistack";
+import Image from "next/image";
 
 // Main List Component
 const PortfoliosList = ({
   sections,
-  updateSection,
   deleteImage,
   handleImageDelete,
+  deleteSection,
+  setSections,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [isEditing, setIsEditing] = useState(null); // Tracks the section being edited
-
-  const handleUpdateSection = async (sectionId, updatedData) => {
-    try {
-      // Call API or update locally to persist changes to the backend
-      await updateSection(sectionId, updatedData);
-      enqueueSnackbar("Section updated successfully!", { variant: "success" });
-      setIsEditing(null); // Exit edit mode after update
-    } catch (error) {
-      enqueueSnackbar("Error updating section", { variant: "error" });
-    }
-  };
 
   return (
     <div>
@@ -34,52 +25,63 @@ const PortfoliosList = ({
             {isEditing === section._id ? (
               <EditableSection
                 section={section}
-                updateSection={handleUpdateSection}
                 deleteImage={deleteImage}
                 handleImageDelete={handleImageDelete}
                 setIsEditing={setIsEditing}
                 isEditing={isEditing}
+                deleteSection={deleteSection}
+                sections={sections}
+                setSections={setSections}
               />
             ) : (
-              <div className="card">
-                <div className="card-header border-0 pb-0">
+              <div className="card shadow shadow-light">
+                <div className="card-header border-1 border-light pb-3">
                   <div className="row m-0 align-items-center justify-content-between">
-                    <h5 className="px-0 col-md-8 col-6 mb-0">
+                    <h5 className="px-0 col-md-8 col-6 mb-0 text-capitalize fw-light">
                       {section.title}
                     </h5>
                     <div className="row m-0 align-items-center col-auto">
                       <button
-                        className="btn btn-danger p-2 mx-1 col-auto"
+                        className="btn btn-danger mx-1 col-auto text-nowrap d-flex align-items-center"
                         onClick={() => deleteSection(section._id)}
                       >
-                        <span className="d-none d-lg-block">
-                          Delete Section
-                        </span>
-                        <i className="bx bxs-trash d-lg-none" />
+                        <i className="bx bxs-trash me-lg-1" />
+                        <span className="d-none d-lg-block">Remove</span>
                       </button>
                       <button
-                        className="btn btn-warning col-auto mx-1"
+                        className="btn col-auto mx-1 px-4 btn-outline-warning border-1 border-warning d-flex align-items-center"
                         onClick={() => setIsEditing(section._id)} // Set section to edit
                       >
-                        <span className="text-black d-none d-lg-block">
-                          Edit
-                        </span>
-                        <i className="text-black bx bxs-pen d-lg-none" />
+                        <i className=" bx bxs-edit m-0 me-lg-1" />
+                        <span className=" d-none d-lg-block">Edit</span>
                       </button>
                     </div>
                   </div>
                 </div>
                 <div className="card-body">
-                  <p>{section.year}</p>
-                  <p>{section.location}</p>
+                  <p className="fs-5 text-warning">
+                    <i className="bx bxs-calendar-check"></i>
+                    &nbsp;
+                    {section?.year}
+                  </p>
+                  <p className="fs-5 text-capitalize text-info">
+                    <i className="bx bxs-location-plus"></i>
+                    &nbsp;
+                    {section.location}
+                  </p>
                   {/* Displaying existing images */}
-                  <div className="row m-0">
+                  <div className="row m-0 flex-nowrap overflow-x-auto">
                     {section.images.map((image, index) => (
-                      <div key={index} className="col-3 position-relative">
-                        <img
+                      <div
+                        key={index}
+                        className="col-lg-2 col-md-4 position-relative my-2"
+                      >
+                        <Image
+                          width={500}
+                          height={500}
                           src={image}
                           alt={`Section image ${index}`}
-                          className="img-fluid"
+                          className="img-fluid rounded-3"
                           style={{ objectFit: "cover", height: "150px" }}
                         />
                       </div>

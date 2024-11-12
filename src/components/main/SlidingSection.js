@@ -4,6 +4,7 @@ import Image from "next/image";
 const SlidingSection = () => {
   const sliderRef = useRef(null);
   const [animationDuration, setAnimationDuration] = useState("10s");
+  const colors = ["text-success", "text-danger", "text-warning", "text-info"];
 
   useEffect(() => {
     const slider = sliderRef.current;
@@ -33,13 +34,17 @@ const SlidingSection = () => {
         style={{ animationDuration }}
       >
         {/* Duplicate the content to enable a smooth loop */}
+
         {Array.from({ length: 3 }).map((_, index) => (
           <>
+            {/* First Slide */}
             <div
-              className="slide px-0 fs-6 text-white d-flex flex-row col-auto"
-              key={index}
+              className="slide px-0 fs-6 d-flex flex-row col-auto"
+              key={`slide-${index}-1`}
             >
-              <p className="m-1">Architecture reimagined</p>
+              <p className={`m-1 ${colors[(index * 4 + 0) % 4]}`}>
+                Architecture reimagined
+              </p>
               <Image
                 width={50}
                 height={50}
@@ -47,7 +52,9 @@ const SlidingSection = () => {
                 alt="Arrow"
                 className="mx-1"
               />
-              <p className="m-1">Palatial Projects</p>
+              <p className={`m-1 ${colors[(index * 4 + 1) % 4]}`}>
+                Palatial Projects
+              </p>
               <Image
                 width={50}
                 height={50}
@@ -56,11 +63,15 @@ const SlidingSection = () => {
                 className="mx-1"
               />
             </div>
+
+            {/* Second Slide */}
             <div
-              className="slide px-0 fs-6 text-white d-flex flex-row col-auto"
-              key={index}
+              className="slide px-0 fs-6 d-flex flex-row col-auto"
+              key={`slide-${index}-2`}
             >
-              <p className="m-1">Architecture reimagined</p>
+              <p className={`m-1 ${colors[(index * 4 + 2) % 4]}`}>
+                Architecture reimagined
+              </p>
               <Image
                 width={50}
                 height={50}
@@ -68,7 +79,9 @@ const SlidingSection = () => {
                 alt="Arrow"
                 className="mx-1"
               />
-              <p className="m-1">Palatial Projects</p>
+              <p className={`m-1 ${colors[(index * 4 + 3) % 4]}`}>
+                Palatial Projects
+              </p>
               <Image
                 width={50}
                 height={50}
@@ -77,11 +90,15 @@ const SlidingSection = () => {
                 className="mx-1"
               />
             </div>
+
+            {/* Third Slide */}
             <div
-              className="slide px-0 fs-6 text-white d-flex flex-row col-auto"
-              key={index}
+              className="slide px-0 fs-6 d-flex flex-row col-auto"
+              key={`slide-${index}-3`}
             >
-              <p className="m-1">Architecture reimagined</p>
+              <p className={`m-1 ${colors[(index * 4 + 4) % 4]}`}>
+                Architecture reimagined
+              </p>
               <Image
                 width={50}
                 height={50}
@@ -89,7 +106,9 @@ const SlidingSection = () => {
                 alt="Arrow"
                 className="mx-1"
               />
-              <p className="m-1">Palatial Projects</p>
+              <p className={`m-1 ${colors[(index * 4 + 5) % 4]}`}>
+                Palatial Projects
+              </p>
               <Image
                 width={50}
                 height={50}
@@ -98,11 +117,15 @@ const SlidingSection = () => {
                 className="mx-1"
               />
             </div>
+
+            {/* Fourth Slide */}
             <div
-              className="slide px-0 fs-6 text-white d-flex flex-row col-auto"
-              key={index}
+              className="slide px-0 fs-6 d-flex flex-row col-auto"
+              key={`slide-${index}-4`}
             >
-              <p className="m-1">Architecture reimagined</p>
+              <p className={`m-1 ${colors[(index * 4 + 6) % 4]}`}>
+                Architecture reimagined
+              </p>
               <Image
                 width={50}
                 height={50}
@@ -110,7 +133,9 @@ const SlidingSection = () => {
                 alt="Arrow"
                 className="mx-1"
               />
-              <p className="m-1">Palatial Projects</p>
+              <p className={`m-1 ${colors[(index * 4 + 7) % 4]}`}>
+                Palatial Projects
+              </p>
               <Image
                 width={50}
                 height={50}

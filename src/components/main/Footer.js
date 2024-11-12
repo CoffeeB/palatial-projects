@@ -29,6 +29,7 @@ const Footer = () => {
               <input
                 type="email"
                 name="email"
+                disabled
                 placeholder="name@gmail.com"
                 className="form-control"
                 style={{
@@ -44,9 +45,10 @@ const Footer = () => {
               />
               <button
                 type="submit"
+                disabled
                 className="btn btn-primary px-3 col-auto text-dark fw-bold"
               >
-                Subscribe
+                <span className="text-black">Subscribe</span>
               </button>
             </form>
           </div>

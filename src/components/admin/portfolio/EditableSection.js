@@ -2,16 +2,18 @@ import { useState } from "react";
 import Image from "next/image";
 import { useSnackbar } from "notistack";
 import { uploadToCloudinary } from "@/utils/generalUtils";
+import { updatePortfolioSection } from "@/utils/dbUtils";
 
 const EditableSection = ({
   section,
-  updateSection,
-  deleteImage,
   handleImageDelete,
   isEditing,
   setIsEditing,
+  deleteSection,
+  sections,
+  setSections,
 }) => {
-  const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const [newImages, setNewImages] = useState([]); // New images to be added
   const [updatedSection, setUpdatedSection] = useState({
@@ -51,47 +53,92 @@ const EditableSection = ({
   };
 
   const handleSave = async () => {
-    try {
-      const updatedData = {
-        ...updatedSection,
-        images: [...newImages, ...section.images], // Prepend new images to the existing ones
-      };
+    enqueueSnackbar("Saving this will permarnently update this section", {
+      variant: "info",
+    });
+    enqueueSnackbar("Are you sure you want to save these changes?", {
+      variant: "warning",
+      action: (key) => (
+        <>
+          <button
+            onClick={async () => {
+              try {
+                const updatedData = {
+                  ...updatedSection,
+                  images: [...newImages, ...section.images], // Prepend new images to the existing ones
+                };
 
-      await updateSection(section._id, updatedData);
-      setIsEditing(false); // Stop editing after saving
-      enqueueSnackbar("Section updated successfully!", { variant: "success" });
-    } catch (error) {
-      enqueueSnackbar("Error updating section", { variant: "error" });
-    }
+                // Call the API to update the portfolio section
+                const data = await updatePortfolioSection(
+                  section._id,
+                  updatedData
+                );
+
+                if (data.success) {
+                  // Update sections state with the new updated section data
+                  const updatedSections = sections.map((s) =>
+                    s._id === section._id ? { ...s, ...updatedData } : s
+                  );
+                  setSections(updatedSections); // Update state with the modified section data
+
+                  setIsEditing(false); // Stop editing after saving
+                  enqueueSnackbar("Section updated successfully!", {
+                    variant: "success",
+                  });
+                } else {
+                  throw new Error("Failed to update the section");
+                }
+              } catch (error) {
+                enqueueSnackbar("Error updating section", { variant: "error" });
+              } finally {
+                // Close the snackbar after action is taken
+                closeSnackbar(key);
+              }
+            }}
+            className="btn btn-danger rounded-1 p-0"
+          >
+            Yes
+          </button>
+          &nbsp;
+          <button
+            onClick={() => closeSnackbar(key)} // Close the snackbar if user cancels
+            className="btn btn-outline-danger border border-danger rounded-1 p-0"
+          >
+            Cancel
+          </button>
+        </>
+      ),
+    });
   };
 
   return (
     <div className="card mb-4">
       <div className="card-header border-0 pb-0">
         <div className="row m-0 align-items-center justify-content-between">
-          <div className="row m-0 align-items-center justify-content-between">
-            <h5 className="px-0 col-lg-8 col-6 mb-0">
-              {isEditing ? (
+          <div className="row m-0 align-items-center justify-content-between px-0">
+            {isEditing ? (
+              <div className="mb-2 col-lg-8 col-6 px-0">
+                <label>Title</label>
                 <input
                   type="text"
                   className="form-control"
                   value={updatedSection.title}
                   onChange={(e) => handleEditChange("title", e.target.value)}
                 />
-              ) : (
-                section.title
-              )}
-            </h5>
+              </div>
+            ) : (
+              <h5 className="px-0 col-lg-8 col-6 mb-0">section.title</h5>
+            )}
             <div className="row m-0 align-items-center col-auto">
               <button
-                className="btn btn-danger p-2 mx-1 col-auto"
+                className="btn btn-danger p-2 mx-1 col-auto d-flex align-items-center justify-content-center"
                 onClick={() => deleteSection(section._id)}
               >
                 <span className="d-none d-lg-block">Delete Section</span>
                 <i className="bx bxs-trash d-lg-none" />
               </button>
               <button
-                className="btn btn-warning d-flex align-items-center justify-content-center p-2 col-2"
+                className="btn btn-outline-success border border-success d-flex align-items-center justify-content-center p-2 col-1"
                 onClick={() => {
                   if (isEditing) {
                     handleSave(); // Save changes
@@ -100,7 +147,10 @@ const EditableSection = ({
                   }
                 }}
               >
-                {isEditing ? "Save" : "Edit"}
+                <span className="d-none d-lg-block">
+                  {isEditing ? "Save" : "Edit"}
+                </span>
+                <i className="bx bx-check d-lg-none" />
               </button>
             </div>
           </div>
@@ -150,7 +200,7 @@ const EditableSection = ({
               {newImages.map((image, index) => (
                 <div
                   key={`new-image-${index}`}
-                  className="col-auto position-relative"
+                  className="col-auto p-2 position-relative"
                 >
                   <Image
                     src={image}
@@ -171,7 +221,7 @@ const EditableSection = ({
               {section.images.map((image, index) => (
                 <div
                   key={`existing-image-${index}`}
-                  className="col-auto position-relative"
+                  className="col-auto p-2 position-relative"
                 >
                   <Image
                     src={image}
@@ -190,6 +240,20 @@ const EditableSection = ({
               ))}
             </div>
           </div>
+        </div>
+
+        <div className="mb-2">
+          {isEditing ? (
+            <button
+              className="btn col-auto mx-1 px-4 btn-outline-danger border-1 border-danger d-flex align-items-center"
+              onClick={() => setIsEditing()} // Set section to edit
+            >
+              <i className=" bx bx-x m-0" />
+              <span className=" d-none d-lg-block">Cancel</span>
+            </button>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>

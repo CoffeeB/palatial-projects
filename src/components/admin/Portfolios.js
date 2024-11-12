@@ -1,16 +1,15 @@
 // pages/PortfolioManager.js
 import { useEffect, useState } from "react";
-import PortfoliosList from "./portfolio/List";
-import PortfolioForm from "./portfolio/Form";
 import { useSnackbar } from "notistack";
+import PortfolioManagerContent from "./portfolio/Content";
 
 const PortfolioManager = () => {
   const [sections, setSections] = useState([]);
   const [isAddingSection, setIsAddingSection] = useState(false);
-  const [sortOrder, setSortOrder] = useState("newest");
+  const [sortOrder, setSortOrder] = useState("latest");
   const [searchQuery, setSearchQuery] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   useEffect(() => {
     if (sections.length > 0) return;
@@ -23,8 +22,6 @@ const PortfolioManager = () => {
           },
         });
         const result = await response.json();
-
-        console.log("portfolios", sections);
 
         if (Array.isArray(result.data)) {
           setSections(result.data);
@@ -41,7 +38,7 @@ const PortfolioManager = () => {
   }, [sections]);
 
   const sortedSections = sections
-    ?.filter((section) => {
+    .filter((section) => {
       return (
         section.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         section.year.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -49,10 +46,12 @@ const PortfolioManager = () => {
       );
     })
     .sort((a, b) => {
-      if (sortOrder === "newest") {
-        return b.id - a.id; // Sort by creation date (newest first)
-      } else if (sortOrder === "year") {
-        return b.year - a.year; // Sort by year (most recent year first)
+      if (sortOrder === "latest") {
+        return b.id - a.id; // Sort by creation date (latest first)
+      } else if (sortOrder === "year_asc") {
+        return a.year - b.year; // Sort by year in ascending order
+      } else if (sortOrder === "year_desc") {
+        return b.year - a.year; // Sort by year in descending order
       }
       return 0;
     });
@@ -74,117 +73,149 @@ const PortfolioManager = () => {
 
   // Delete a section
   const deleteSection = async (sectionId) => {
-    try {
-      const response = await fetch(`/api/portfolio?id=${sectionId}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await response.json();
-      if (data.success) {
-        setSections(sections.filter((section) => section._id !== sectionId));
-        enqueueSnackbar("Portfolio section deleted successfully!", {
-          variant: "success",
-        });
-      } else {
-        console.error("Failed to delete portfolio section:", data.message);
-        enqueueSnackbar("Failed to delete portfolio section.", {
-          variant: "error",
-        });
-      }
-    } catch (error) {
-      console.error("Error deleting portfolio section:", error);
-      enqueueSnackbar("Error deleting portfolio section.", {
-        variant: "error",
-      });
-    }
+    enqueueSnackbar("Are you sure you want to delete this portfolio section?", {
+      variant: "warning",
+      action: (key) => (
+        <>
+          <button
+            onClick={async () => {
+              try {
+                // Proceed with deletion if user clicks confirm
+                const response = await fetch(`/api/portfolio?id=${sectionId}`, {
+                  method: "DELETE",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                  // Update state if delete is successful
+                  setSections(
+                    sections.filter((section) => section._id !== sectionId)
+                  );
+                  enqueueSnackbar("Portfolio section deleted successfully!", {
+                    variant: "success",
+                  });
+                } else {
+                  console.error(
+                    "Failed to delete portfolio section:",
+                    data.message
+                  );
+                  enqueueSnackbar("Failed to delete portfolio section.", {
+                    variant: "error",
+                  });
+                }
+              } catch (error) {
+                console.error("Error deleting portfolio section:", error);
+                enqueueSnackbar("Error deleting portfolio section.", {
+                  variant: "error",
+                });
+              } finally {
+                // Close the snackbar after action is taken
+                closeSnackbar(key);
+              }
+            }}
+            className="btn btn-danger rounded-1 p-0"
+          >
+            Yes
+          </button>
+          &nbsp;
+          <button
+            onClick={() => closeSnackbar(key)}
+            className="btn btn-outline-danger border border-danger rounded-1 p-0"
+          >
+            Cancel
+          </button>
+        </>
+      ),
+    });
   };
 
   // Delete an image from a portfolio section
   const handleImageDelete = async (sectionId, imageUrl) => {
-    try {
-      const response = await fetch(`/api/portfolio`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ sectionId, imageUrl }),
-      });
-      const data = await response.json();
-      if (data.success) {
-        const updatedSections = sections.map((section) =>
-          section._id === sectionId
-            ? {
-                ...section,
-                images: section.images.filter((image) => image !== imageUrl),
+    enqueueSnackbar("Are you sure you want to remove this image?", {
+      variant: "warning",
+      action: (key) => (
+        <>
+          <button
+            onClick={async () => {
+              try {
+                // Proceed with image removal if user clicks confirm
+                const response = await fetch(`/api/portfolio`, {
+                  method: "PATCH",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({ sectionId, imageUrl }),
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                  // Update state if image removal is successful
+                  const updatedSections = sections.map((section) =>
+                    section._id === sectionId
+                      ? {
+                          ...section,
+                          images: section.images.filter(
+                            (image) => image !== imageUrl
+                          ),
+                        }
+                      : section
+                  );
+                  setSections(updatedSections);
+                  enqueueSnackbar(
+                    "Image removed from portfolio successfully!",
+                    {
+                      variant: "success",
+                    }
+                  );
+                } else {
+                  console.error("Failed to remove image:", data.message);
+                  enqueueSnackbar("Failed to remove image.", {
+                    variant: "error",
+                  });
+                }
+              } catch (error) {
+                console.error("Error removing image:", error);
+                enqueueSnackbar("Error removing image.", { variant: "error" });
+              } finally {
+                // Close the snackbar after action is taken
+                closeSnackbar(key); // Close the snackbar after confirmation
               }
-            : section
-        );
-        setSections(updatedSections);
-        enqueueSnackbar("Image removed from portfolio successfully!", {
-          variant: "success",
-        });
-      } else {
-        console.error("Failed to remove image:", data.message);
-        enqueueSnackbar("Failed to remove image.", { variant: "error" });
-      }
-    } catch (error) {
-      console.error("Error removing image:", error);
-      enqueueSnackbar("Error removing image.", { variant: "error" });
-    }
+            }}
+            className="btn btn-danger rounded-1 p-0"
+          >
+            Yes
+          </button>
+          &nbsp;
+          <button
+            onClick={() => closeSnackbar(key)} // Close snackbar on Cancel
+            className="btn btn-outline-danger border border-danger rounded-1 p-0"
+          >
+            Cancel
+          </button>
+        </>
+      ),
+    });
   };
 
   return (
-    <div className="my-5">
-      <h1 className="h2 mb-4">Manage Portfolio</h1>
-
-      {!isAddingSection ? (
-        <div>
-          <div className="mb-4 d-flex justify-content-between">
-            <div className="">
-              <button
-                className="btn btn-info me-2"
-                onClick={() => setSortOrder("newest")}
-              >
-                <span className="text-black">Sort by Newest</span>
-              </button>
-              <button
-                className="btn btn-info me-2"
-                onClick={() => setSortOrder("year")}
-              >
-                <span className="text-black">Sort by Year</span>
-              </button>
-            </div>
-            <button
-              className="btn btn-primary mb-4 d-flex align-items-center"
-              onClick={() => setIsAddingSection(true)}
-            >
-              <span className="text-black d-none d-lg-block">
-                Add New Section
-              </span>
-              &nbsp;
-              <i className="text-black bx bx-plus" />
-            </button>
-          </div>
-          <PortfoliosList
-            sections={sections}
-            deleteSection={deleteSection}
-            handleImageDelete={handleImageDelete}
-            sortedSections={sortedSections}
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            setIsEditing={setIsEditing}
-            isEditing={isEditing}
-          />
-        </div>
-      ) : (
-        <PortfolioForm
-          addSection={addSection}
-          setIsAddingSection={setIsAddingSection}
-        />
-      )}
-    </div>
+    <PortfolioManagerContent
+      sections={sortedSections}
+      isAddingSection={isAddingSection}
+      sortOrder={sortOrder}
+      searchQuery={searchQuery}
+      setSortOrder={setSortOrder}
+      setIsAddingSection={setIsAddingSection}
+      addSection={addSection}
+      deleteSection={deleteSection}
+      handleImageDelete={handleImageDelete}
+      setSearchQuery={setSearchQuery}
+      isEditing={isEditing}
+      setIsEditing={setIsEditing}
+      setSections={setSections}
+    />
   );
 };
 

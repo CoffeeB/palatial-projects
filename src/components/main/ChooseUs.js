@@ -54,8 +54,8 @@ const ChooseUs = () => {
             className="btn btn-info text-black rounded col-lg-2 col-auto ms-3 fw-bold my-2"
             href="./#contact-us"
           >
-            Get in touch right away
-            <i className="bx bx-chevron-right" />
+            <span className="text-black">Get in touch right away</span>
+            <i className="bx bx-chevron-right text-black" />
           </a>
         </div>
         <div className="row m-0">

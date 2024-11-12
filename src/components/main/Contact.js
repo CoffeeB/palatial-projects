@@ -91,7 +91,7 @@ const Contact = () => {
                     type="submit"
                     className="btn btn-primary w-100 text-black rounded"
                   >
-                    <span className="fw-bold fs-5">Submit</span>
+                    <span className="text-black fw-bold fs-5">Submit</span>
                   </button>
                 </div>
               </div>

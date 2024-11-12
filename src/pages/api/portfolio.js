@@ -3,17 +3,16 @@ import { ObjectId } from "mongodb";
 
 export default async function handler(req, res) {
   const { db } = await connectToDatabase();
-
-  // Access the HTTP method from the request
-  const { method } = req; // This should correctly define the `method` variable
+  const { method } = req;
 
   switch (method) {
     case "GET":
-      // Fetch portfolios
+      // Fetch all portfolio sections
       try {
         const portfolios = await db.collection("portfolios").find({}).toArray();
         res.status(200).json({ success: true, data: portfolios });
       } catch (error) {
+        console.error(error);
         res
           .status(500)
           .json({ success: false, message: "Failed to fetch portfolios" });
@@ -21,7 +20,7 @@ export default async function handler(req, res) {
       break;
 
     case "POST":
-      // Insert a new portfolio
+      // Insert a new portfolio section
       try {
         const { title, year, location, images } = req.body;
         if (!title || !year || !location || !images || images.length === 0) {
@@ -43,6 +42,7 @@ export default async function handler(req, res) {
           data: { ...req.body, id: result.insertedId },
         });
       } catch (error) {
+        console.error(error);
         res
           .status(500)
           .json({ success: false, message: "Internal Server Error" });
@@ -50,12 +50,12 @@ export default async function handler(req, res) {
       break;
 
     case "DELETE":
-      // Handle DELETE request to delete portfolio by sectionId
-      const { id } = req.query; // Extract sectionId from query string
-      if (!id) {
+      // Handle DELETE request to delete portfolio section by ID
+      const { id } = req.query;
+      if (!id || !ObjectId.isValid(id)) {
         return res
           .status(400)
-          .json({ success: false, message: "No section ID provided." });
+          .json({ success: false, message: "Invalid or missing ID" });
       }
       try {
         const result = await db
@@ -65,7 +65,7 @@ export default async function handler(req, res) {
         if (result.deletedCount === 0) {
           return res
             .status(404)
-            .json({ success: false, message: "Portfolio not found" });
+            .json({ success: false, message: "Portfolio section not found" });
         }
 
         res
@@ -75,6 +75,7 @@ export default async function handler(req, res) {
             message: "Portfolio section deleted successfully",
           });
       } catch (error) {
+        console.error(error);
         res
           .status(500)
           .json({
@@ -85,14 +86,14 @@ export default async function handler(req, res) {
       break;
 
     case "PATCH":
-      // Handle PATCH request to remove an image from portfolio section
+      // Handle PATCH request to remove an image from a portfolio section
       const { sectionId, imageUrl } = req.body;
-      if (!sectionId || !imageUrl) {
+      if (!sectionId || !ObjectId.isValid(sectionId) || !imageUrl) {
         return res
           .status(400)
           .json({
             success: false,
-            message: "sectionId and imageUrl are required",
+            message: "Invalid data: sectionId and imageUrl are required",
           });
       }
       try {
@@ -106,7 +107,10 @@ export default async function handler(req, res) {
         if (result.modifiedCount === 0) {
           return res
             .status(404)
-            .json({ success: false, message: "Portfolio section not found" });
+            .json({
+              success: false,
+              message: "Portfolio section not found or image not removed",
+            });
         }
 
         res
@@ -116,9 +120,63 @@ export default async function handler(req, res) {
             message: "Image removed from portfolio section",
           });
       } catch (error) {
+        console.error(error);
         res
           .status(500)
           .json({ success: false, message: "Failed to remove image" });
+      }
+      break;
+
+    case "PUT":
+      // Handle PUT request to update a portfolio section
+      const { updateId, title, year, location, images } = req.body;
+      if (!updateId || !ObjectId.isValid(updateId)) {
+        return res
+          .status(400)
+          .json({ success: false, message: "Invalid or missing section ID" });
+      }
+      if (!title && !year && !location && !images) {
+        return res
+          .status(400)
+          .json({
+            success: false,
+            message:
+              "At least one field (title, year, location, images) must be provided to update",
+          });
+      }
+
+      try {
+        const updateFields = {};
+        if (title) updateFields.title = title;
+        if (year) updateFields.year = year;
+        if (location) updateFields.location = location;
+        if (images) updateFields.images = images;
+
+        const result = await db
+          .collection("portfolios")
+          .updateOne({ _id: new ObjectId(updateId) }, { $set: updateFields });
+
+        if (result.modifiedCount === 0) {
+          return res
+            .status(404)
+            .json({
+              success: false,
+              message: "Portfolio section not found or no changes made",
+            });
+        }
+
+        res.status(200).json({
+          success: true,
+          message: "Portfolio section updated successfully",
+        });
+      } catch (error) {
+        console.error(error);
+        res
+          .status(500)
+          .json({
+            success: false,
+            message: "Failed to update portfolio section",
+          });
       }
       break;
 
