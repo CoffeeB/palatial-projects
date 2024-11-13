@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useSnackbar } from "notistack";
 import PortfolioManagerContent from "./portfolio/Content";
+import { deleteFromCloudinary } from "@/utils/generalUtils";
 
 const PortfolioManager = () => {
   const [sections, setSections] = useState([]);
@@ -128,71 +129,12 @@ const PortfolioManager = () => {
   };
 
   // Delete an image from a portfolio section
-  const handleImageDelete = async (sectionId, imageUrl) => {
-    enqueueSnackbar("Are you sure you want to remove this image?", {
-      variant: "warning",
-      action: (key) => (
-        <>
-          <button
-            onClick={async () => {
-              try {
-                // Proceed with image removal if user clicks confirm
-                const response = await fetch(`/api/portfolio`, {
-                  method: "PATCH",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({ sectionId, imageUrl }),
-                });
-
-                const data = await response.json();
-                if (data.success) {
-                  // Update state if image removal is successful
-                  const updatedSections = sections.map((section) =>
-                    section._id === sectionId
-                      ? {
-                          ...section,
-                          images: section.images.filter(
-                            (image) => image !== imageUrl
-                          ),
-                        }
-                      : section
-                  );
-                  setSections(updatedSections);
-                  enqueueSnackbar(
-                    "Image removed from portfolio successfully!",
-                    {
-                      variant: "success",
-                    }
-                  );
-                } else {
-                  console.error("Failed to remove image:", data.message);
-                  enqueueSnackbar("Failed to remove image.", {
-                    variant: "error",
-                  });
-                }
-              } catch (error) {
-                console.error("Error removing image:", error);
-                enqueueSnackbar("Error removing image.", { variant: "error" });
-              } finally {
-                // Close the snackbar after action is taken
-                closeSnackbar(key); // Close the snackbar after confirmation
-              }
-            }}
-            className="btn btn-danger rounded-1 p-0"
-          >
-            Yes
-          </button>
-          &nbsp;
-          <button
-            onClick={() => closeSnackbar(key)} // Close snackbar on Cancel
-            className="btn btn-outline-danger border border-danger rounded-1 p-0"
-          >
-            Cancel
-          </button>
-        </>
-      ),
-    });
+  const handleImageDelete = async (publicId) => {
+    try {
+      const url = await deleteFromCloudinary(publicId);
+    } catch (error) {
+      console.error("Error removing image:", error);
+    }
   };
 
   return (

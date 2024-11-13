@@ -1,7 +1,7 @@
-import emailjs from 'emailjs-com';
+import emailjs from "emailjs-com";
 
 export default async function handler(req, res) {
-  if (req.method === 'POST') {
+  if (req.method === "POST") {
     const { fullName, email, phoneNumber, message } = req.body;
 
     // Retrieve EmailJS keys from environment variables
@@ -18,12 +18,16 @@ export default async function handler(req, res) {
         userID
       );
 
-      res.status(200).json({ success: true, message: 'Message sent successfully' });
+      res
+        .status(200)
+        .json({ success: true, message: "Message sent successfully" });
     } catch (error) {
       console.error("Error sending email:", error);
-      res.status(500).json({ success: false, message: 'Error sending message' });
+      res
+        .status(500)
+        .json({ success: false, message: "Error sending message" });
     }
   } else {
-    res.status(405).json({ success: false, message: 'Method Not Allowed' });
+    res.status(405).json({ success: false, message: "Method Not Allowed" });
   }
 }

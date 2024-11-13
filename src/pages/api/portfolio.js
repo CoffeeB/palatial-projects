@@ -100,7 +100,7 @@ export default async function handler(req, res) {
           .collection("portfolios")
           .updateOne(
             { _id: new ObjectId(sectionId) },
-            { $pull: { images: imageUrl } }
+            { $pull: { images: { secure_url: imageUrl } } }
           );
 
         if (result.modifiedCount === 0) {

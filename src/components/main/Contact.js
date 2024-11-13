@@ -35,9 +35,9 @@ const Contact = () => {
     setStatusMessage("");
 
     // Log to check if environment variables are loaded correctly
-    const serviceID = "service_ktd8qqa";
-    const templateID = "template_teyvaij";
-    const userID = "IuJz05RXFUnvSG0__";
+    const serviceID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+    const templateID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+    const userID = process.env.NEXT_PUBLIC_EMAILJS_USER_ID;
 
     if (!serviceID || !templateID || !userID) {
       console.error("Missing EmailJS credentials. Please check .env file.");

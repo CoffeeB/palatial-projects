@@ -79,7 +79,7 @@ const PortfoliosList = ({
                         <Image
                           width={500}
                           height={500}
-                          src={image}
+                          src={image.secure_url}
                           alt={`Section image ${index}`}
                           className="img-fluid rounded-3"
                           style={{ objectFit: "cover", height: "150px" }}

@@ -101,7 +101,7 @@ const Portfolio = () => {
                             <Image
                               width={500}
                               height={500}
-                              src={image}
+                              src={image.secure_url}
                               alt={`Image for ${card.title}`}
                               className="d-block w-100"
                             />
