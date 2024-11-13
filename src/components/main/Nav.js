@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const Nav = () => {
   return (
@@ -41,7 +42,7 @@ const Nav = () => {
               )
             )}
           </ul>
-          <a
+          <Link
             className="btn btn-info p-2 fw-normal rounded text-black d-flex align-items-center"
             href="#contact-us"
             role="button"
@@ -50,7 +51,7 @@ const Nav = () => {
               Get in touch right away
             </span>
             <i className="bx bx-chevron-right text-black" />
-          </a>
+          </Link>
         </div>
       </div>
     </nav>

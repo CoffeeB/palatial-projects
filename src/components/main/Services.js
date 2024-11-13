@@ -76,6 +76,7 @@ const Services = () => {
             services.map((service, index) => (
               <div
                 ref={ref}
+                key={`.card-${index}`}
                 className={`${inView ? "animate-fadeInUp" : "opacity-0"}`}
               >
                 <ServiceCard
