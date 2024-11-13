@@ -10,17 +10,18 @@ export default async function handler(req, res) {
       // Fetch all services
       try {
         const services = await db.collection("services").find({}).toArray();
-        res.status(200).json({ success: true, data: services });
+        return res.status(200).json({ success: true, data: services });
       } catch (error) {
         console.error(error);
-        res
-          .status(500)
-          .json({ success: false, message: "Failed to fetch services" });
+        return res.status(500).json({
+          success: false,
+          message: "Failed to fetch services",
+          error: error.message, // Include error details
+        });
       }
-      break;
 
     case "POST":
-      // Insert a new services
+      // Insert a new service
       try {
         const { title, description } = req.body;
 
@@ -43,10 +44,10 @@ export default async function handler(req, res) {
         if (result.insertedId) {
           return res.status(201).json({
             success: true,
-            message: "Service added successfully", // success message
+            message: "Service added successfully",
             data: {
               ...req.body,
-              _id: result.insertedId.toString(), // Make sure the ID is a string
+              _id: result.insertedId.toString(), // Ensure the ID is a string
             },
           });
         } else {
@@ -57,20 +58,21 @@ export default async function handler(req, res) {
         }
       } catch (error) {
         console.error("Error inserting service:", error);
-        res.status(500).json({
+        return res.status(500).json({
           success: false,
           message: "Internal Server Error. Please try again later.",
+          error: error.message, // Include error details
         });
       }
-      break;
 
     case "DELETE":
       // Handle DELETE request to delete services by ID
       const { id } = req.query;
       if (!id || !ObjectId.isValid(id)) {
-        return res
-          .status(400)
-          .json({ success: false, message: "Invalid or missing ID" });
+        return res.status(400).json({
+          success: false,
+          message: "Invalid or missing ID",
+        });
       }
       try {
         const result = await db
@@ -78,26 +80,27 @@ export default async function handler(req, res) {
           .deleteOne({ _id: new ObjectId(id) });
 
         if (result.deletedCount === 0) {
-          return res
-            .status(404)
-            .json({ success: false, message: "Service not found" });
+          return res.status(404).json({
+            success: false,
+            message: "Service not found",
+          });
         }
 
-        res.status(200).json({
+        return res.status(200).json({
           success: true,
           message: "Service deleted successfully",
         });
       } catch (error) {
         console.error(error);
-        res.status(500).json({
+        return res.status(500).json({
           success: false,
-          message: "Failed to delete services",
+          message: "Failed to delete service",
+          error: error.message, // Include error details
         });
       }
-      break;
 
     case "PATCH":
-      // Handle PATCH request to remove an image from a services
+      // Handle PATCH request to remove an image from a service
       const { serviceId, imageUrl } = req.body;
       if (!serviceId || !ObjectId.isValid(serviceId) || !imageUrl) {
         return res.status(400).json({
@@ -120,31 +123,32 @@ export default async function handler(req, res) {
           });
         }
 
-        res.status(200).json({
+        return res.status(200).json({
           success: true,
           message: "Image removed from service",
         });
       } catch (error) {
         console.error(error);
-        res
-          .status(500)
-          .json({ success: false, message: "Failed to remove image" });
+        return res.status(500).json({
+          success: false,
+          message: "Failed to remove image",
+          error: error.message, // Include error details
+        });
       }
-      break;
 
     case "PUT":
-      // Handle PUT request to update a services
+      // Handle PUT request to update a service
       const { updateId, title, description } = req.body;
       if (!updateId || !ObjectId.isValid(updateId)) {
-        return res
-          .status(400)
-          .json({ success: false, message: "Invalid or missing service ID" });
+        return res.status(400).json({
+          success: false,
+          message: "Invalid or missing service ID",
+        });
       }
       if (!title && !description) {
         return res.status(400).json({
           success: false,
-          message:
-            "At least one field (title, description) must be provided to update",
+          message: "At least one field (title, description) must be provided to update",
         });
       }
 
@@ -164,21 +168,23 @@ export default async function handler(req, res) {
           });
         }
 
-        res.status(200).json({
+        return res.status(200).json({
           success: true,
           message: "Service updated successfully",
         });
       } catch (error) {
         console.error(error);
-        res.status(500).json({
+        return res.status(500).json({
           success: false,
           message: "Failed to update service",
+          error: error.message, // Include error details
         });
       }
-      break;
 
     default:
-      res.status(405).json({ success: false, message: "Method Not Allowed" });
-      break;
+      return res.status(405).json({
+        success: false,
+        message: "Method Not Allowed",
+      });
   }
 }

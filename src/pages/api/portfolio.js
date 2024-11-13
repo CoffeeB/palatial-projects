@@ -10,23 +10,25 @@ export default async function handler(req, res) {
       // Fetch all portfolio sections
       try {
         const portfolios = await db.collection("portfolios").find({}).toArray();
-        res.status(200).json({ success: true, data: portfolios });
+        return res.status(200).json({ success: true, data: portfolios });
       } catch (error) {
         console.error(error);
-        res
-          .status(500)
-          .json({ success: false, message: "Failed to fetch portfolios" });
+        return res.status(500).json({
+          success: false,
+          message: "Failed to fetch portfolios",
+          error: error.message, // Include error details for debugging
+        });
       }
-      break;
 
     case "POST":
       // Insert a new portfolio section
       try {
         const { title, year, location, images } = req.body;
         if (!title || !year || !location || !images || images.length === 0) {
-          return res
-            .status(400)
-            .json({ success: false, message: "All fields are required." });
+          return res.status(400).json({
+            success: false,
+            message: "All fields are required.",
+          });
         }
 
         const result = await db.collection("portfolios").insertOne({
@@ -37,25 +39,27 @@ export default async function handler(req, res) {
           createdAt: new Date(),
         });
 
-        res.status(201).json({
+        return res.status(201).json({
           success: true,
-          data: { ...req.body, _id: result.insertedId.toString() },
+          data: { ...req.body, _id: result.insertedId.toString() }, // Include the new ID
         });
       } catch (error) {
         console.error(error);
-        res
-          .status(500)
-          .json({ success: false, message: "Internal Server Error" });
+        return res.status(500).json({
+          success: false,
+          message: "Internal Server Error",
+          error: error.message, // Include error details for debugging
+        });
       }
-      break;
 
     case "DELETE":
       // Handle DELETE request to delete portfolio section by ID
       const { id } = req.query;
       if (!id || !ObjectId.isValid(id)) {
-        return res
-          .status(400)
-          .json({ success: false, message: "Invalid or missing ID" });
+        return res.status(400).json({
+          success: false,
+          message: "Invalid or missing ID",
+        });
       }
       try {
         const result = await db
@@ -63,23 +67,24 @@ export default async function handler(req, res) {
           .deleteOne({ _id: new ObjectId(id) });
 
         if (result.deletedCount === 0) {
-          return res
-            .status(404)
-            .json({ success: false, message: "Portfolio section not found" });
+          return res.status(404).json({
+            success: false,
+            message: "Portfolio section not found",
+          });
         }
 
-        res.status(200).json({
+        return res.status(200).json({
           success: true,
           message: "Portfolio section deleted successfully",
         });
       } catch (error) {
         console.error(error);
-        res.status(500).json({
+        return res.status(500).json({
           success: false,
           message: "Failed to delete portfolio section",
+          error: error.message, // Include error details for debugging
         });
       }
-      break;
 
     case "PATCH":
       // Handle PATCH request to remove an image from a portfolio section
@@ -105,25 +110,27 @@ export default async function handler(req, res) {
           });
         }
 
-        res.status(200).json({
+        return res.status(200).json({
           success: true,
           message: "Image removed from portfolio section",
         });
       } catch (error) {
         console.error(error);
-        res
-          .status(500)
-          .json({ success: false, message: "Failed to remove image" });
+        return res.status(500).json({
+          success: false,
+          message: "Failed to remove image",
+          error: error.message, // Include error details for debugging
+        });
       }
-      break;
 
     case "PUT":
       // Handle PUT request to update a portfolio section
       const { updateId, title, year, location, images } = req.body;
       if (!updateId || !ObjectId.isValid(updateId)) {
-        return res
-          .status(400)
-          .json({ success: false, message: "Invalid or missing section ID" });
+        return res.status(400).json({
+          success: false,
+          message: "Invalid or missing section ID",
+        });
       }
       if (!title && !year && !location && !images) {
         return res.status(400).json({
@@ -151,21 +158,23 @@ export default async function handler(req, res) {
           });
         }
 
-        res.status(200).json({
+        return res.status(200).json({
           success: true,
           message: "Portfolio section updated successfully",
         });
       } catch (error) {
         console.error(error);
-        res.status(500).json({
+        return res.status(500).json({
           success: false,
           message: "Failed to update portfolio section",
+          error: error.message, // Include error details for debugging
         });
       }
-      break;
 
     default:
-      res.status(405).json({ success: false, message: "Method Not Allowed" });
-      break;
+      return res.status(405).json({
+        success: false,
+        message: "Method Not Allowed",
+      });
   }
 }
