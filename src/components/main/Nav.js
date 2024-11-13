@@ -6,7 +6,7 @@ const Nav = () => {
     <nav className="navbar navbar-expand-lg navbar-dark bg-black border-bottom position-fixed w-100 py-3 px-md-8 z-3">
       <div className="row d-flex m-0 w-100">
         <div className="d-flex col-auto">
-          <a className="navbar-brand" href="/#top">
+          <Link className="navbar-brand" href="/#top">
             <Image
               src="https://framerusercontent.com/images/ZdKIt0n5znnTHaYeT2a0mUudo.png"
               alt="Logo"
@@ -14,7 +14,7 @@ const Nav = () => {
               height={1080}
               style={{ height: "50px", width: "200px" }}
             />
-          </a>
+          </Link>
         </div>
         <button
           className="navbar-toggler ms-auto me-4 col-auto"
@@ -32,12 +32,12 @@ const Nav = () => {
             {["About Us", "Our Services", "Portfolio", "Contact Us"].map(
               (link, index) => (
                 <li className="nav-item" key={index}>
-                  <a
+                  <Link
                     className="nav-link"
-                    href={`./#${link.replace(" ", "-").toLowerCase()}`}
+                    href={`/#${link.replace(" ", "-").toLowerCase()}`}
                   >
                     {link}
-                  </a>
+                  </Link>
                 </li>
               )
             )}
