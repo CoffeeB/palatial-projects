@@ -39,7 +39,7 @@ a {
 }
 
 a span {
-  cursor: text;
+  cursor: pointer;
 }
 
 .btns-sect {
@@ -220,6 +220,14 @@ a span {
   justify-content: center;
 }
 
+.ChooseUs-bg {
+  background: url(/assets/img/choose_us_bg.png) no-repeat fixed;
+  height: 100%;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .slider {
   display: flex;
   flex-direction: row;
@@ -283,8 +291,7 @@ a span {
 }
 
 .animate-fadeInUp {
-  animation: fadeInUp 0.3s ease-out forwards;
-  opacity: 0;
+  animation: fadeInUp 1.3s ease-out forwards;
   transform: translateY(100px);
 }
 

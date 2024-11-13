@@ -58,14 +58,16 @@ const Testimonials = () => {
 
   const { ref, inView } = useInView({
     triggerOnce: true, // Trigger the animation only once
-    threshold: 0.5, // Trigger when 50% of the section is in view
+    threshold: 0.3, // Trigger when 50% of the section is in view
   });
 
   return (
     <>
       <section
         ref={ref}
-        className={`p-lg-10 py-md-8 py-5  ${inView ? "animate-fadeInUp" : ""}`}
+        className={`p-lg-10 py-md-8 py-5  ${
+          inView ? "animate-fadeInUp" : "opacity-0"
+        }`}
       >
         <div className="d-flex flex-md-row flex-column align-items-center px-2">
           <div className="row m-0 flex-md-row flex-column align-items-center">
@@ -82,10 +84,12 @@ const Testimonials = () => {
             </p>
           </div>
           <a
-            className="btn btn-info text-black rounded col-lg-2 col-auto ms-3 fw-bold my-2 d-flex align-items-center"
+            className="btn btn-info text-black rounded col-lg-2 col-auto ms-3 fw-bold my-2 d-flex align-items-center justify-content-center"
             href="./#contact-us"
           >
-            <span className="text-black">Book free consultation</span>
+            <span className="text-black px-2 cursor-pointer">
+              Book free consultation
+            </span>
             <i className="bx bx-chevron-right text-black" />
           </a>
         </div>
@@ -102,11 +106,11 @@ const Testimonials = () => {
                 <div className="col-md-6 p-1 h-100" key={testimonial.id}>
                   <div
                     ref={ref}
-                    className={`bg-dark bg-opacity-25 p-2  ${
-                      inView ? "animate-fadeInUp" : ""
+                    className={`bg-white bg-opacity-10 p-5  ${
+                      inView ? "animate-fadeInUp" : "opacity-0"
                     }`}
                   >
-                    <div className="card bg-black rounded-0 shadow-sm h-100 py-3 px-5 ">
+                    <div className="card bg-black rounded-0 shadow-sm h-100 p-5 ">
                       <div className="card-header p-0 border-0">
                         <div className="row align-items-center m-0">
                           <Image
@@ -126,8 +130,8 @@ const Testimonials = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="card-body bg-secondary bg-opacity-25">
-                        <p className="text-white mt-2">
+                      <div className="card-body bg-white bg-opacity-25">
+                        <p className="text-white mt-2 py-5">
                           &rdquo; {testimonial.testimony} &ldquo;
                         </p>
                       </div>

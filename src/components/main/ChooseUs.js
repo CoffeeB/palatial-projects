@@ -39,35 +39,34 @@ const cards = [
 const ChooseUs = () => {
   const { ref, inView } = useInView({
     triggerOnce: true, // Trigger the animation only once
-    threshold: 0.5, // Trigger when 50% of the section is in view
+    threshold: 0.3, // Trigger when 50% of the section is in view
   });
 
   return (
     <>
       <section
-        className="p-lg-10 py-md-8 py-5 row m-0"
-        style={{ backgroundImage: "url(/assets/img/choose_us_bg.png)" }}
+        ref={ref}
+        className="p-lg-10 pb-lg-0 pt-md-8 py-5 pb-0 row m-0 ChooseUs-bg"
       >
         <div
-          ref={ref}
           className={`d-flex flex-md-row flex-column align-items-center px-2 ${
-            inView ? "animate-fadeInUp" : ""
+            inView ? "animate-fadeInUp" : "opacity-0"
           }`}
         >
           <div className="row m-0 flex-md-row flex-column align-items-center">
             <p
               ref={ref}
               className={`bg-primary rounded-5 p-2 bg-opacity-25 d-flex align-items-center col-auto ${
-                inView ? "animate-fadeInUp" : ""
+                inView ? "animate-fadeInUp" : "opacity-0"
               }`}
             >
               <i className="bx bxs-circle fs-sm" />
               &nbsp; Why Choose Us?
             </p>
-            <p className="text-uppercase text-md-start text-center fs-6">
+            <h1 className="text-uppercase text-md-start text-center fs-4 fw-medium mb-3">
               Building Trust, One Project at a Time
-            </p>
-            <p className="col-lg-4 pe-lg-9 fs-6 text-md-start text-center">
+            </h1>
+            <p className="col-lg-4 pe-lg-5 fs-6 text-md-start text-center">
               Choosing Projects means partnering with a team committed to
               delivering excellence.
             </p>
@@ -76,7 +75,9 @@ const ChooseUs = () => {
             className="btn btn-info text-black rounded col-auto ms-3 fw-bold my-2 d-flex align-items-center"
             href="./#contact-us"
           >
-            <span className="text-black">Get in touch right away</span>
+            <span className="text-black px-2 cursor-pointer">
+              Get in touch right away
+            </span>
             <i className="bx bx-chevron-right text-black" />
           </a>
         </div>
@@ -86,7 +87,7 @@ const ChooseUs = () => {
               ref={ref}
               key={card.id}
               className={`col-lg-3 col-md-6 p-3 ${
-                inView ? "animate-fadeInUp" : ""
+                inView ? "animate-fadeInUp" : "opacity-0"
               }`}
             >
               <div className="card border-0 rounded-0 bg-black bg-opacity-25 h-100">

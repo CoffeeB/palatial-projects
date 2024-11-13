@@ -8,6 +8,10 @@ const Portfolio = () => {
 
   const [stopFetch, setStopFetch] = useState(false);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { ref, inView } = useInView({
+    triggerOnce: true, // Trigger the animation only once
+    threshold: 0.3, // Trigger when 50% of the section is in view
+  });
 
   // Fetch portfolio data from the API
   useEffect(() => {
@@ -41,18 +45,14 @@ const Portfolio = () => {
     fetchPortfolioData();
   }, [cards, stopFetch]);
 
-  const { ref, inView } = useInView({
-    triggerOnce: true, // Trigger the animation only once
-    threshold: 0.5, // Trigger when 50% of the section is in view
-  });
-
   return (
-    <section
-      className={`p-lg-10 py-md-8 py-5 bg-black ${
-        inView ? "animate-fadeInUp" : ""
-      }`}
-    >
-      <div className="row m-0 justify-content-center">
+    <section id="portfolio" className={`p-lg-10 py-md-8 py-5 bg-black`}>
+      <div
+        ref={ref}
+        className={`row m-0 justify-content-center ${
+          inView ? "animate-fadeInUp" : "opacity-0"
+        }`}
+      >
         <p className="bg-primary rounded-5 p-2 bg-opacity-25 d-flex align-items-center col-auto">
           <i className="bx bxs-circle fs-sm" />
           &nbsp; Portfolio
@@ -62,7 +62,10 @@ const Portfolio = () => {
         </p>
       </div>
 
-      <div className="py-6">
+      <div
+        ref={ref}
+        className={`py-6 ${inView ? "animate-fadeInUp" : "opacity-0"}`}
+      >
         <div className="row m-0">
           {cards?.length === 0 ? (
             <>

@@ -13,7 +13,7 @@ const Contact = () => {
 
   const { ref, inView } = useInView({
     triggerOnce: true, // Trigger the animation only once
-    threshold: 0.5, // Trigger when 50% of the section is in view
+    threshold: 0.3, // Trigger when 50% of the section is in view
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -96,9 +96,11 @@ const Contact = () => {
     <section
       ref={ref}
       id="contact-us"
-      className={`p-lg-10 py-md-8 py-5 ${inView ? "animate-fadeInUp" : ""}`}
+      className={`p-lg-10 py-md-8 py-5 ${
+        inView ? "animate-fadeInUp" : "opacity-0"
+      }`}
     >
-      <div className="bg-dark bg-opacity-25 p-5">
+      <div className="bg-white bg-opacity-10 p-5">
         <div className="row m-0 justify-content-center bg-black pt-10">
           <p className="text-uppercase m-0 text-center fw-bold text-white fs-4">
             CONTACT US
@@ -117,8 +119,11 @@ const Contact = () => {
         <div className="p-lg-10 py-10 bg-black pb-10">
           <form className="row g-3" onSubmit={handleSubmit}>
             <div className="col-md-7 mx-auto px-3">
-              <div className="col-12">
-                <label htmlFor="fullName" className="form-label text-white-50">
+              <div className="col-12 mb-4">
+                <label
+                  htmlFor="fullName"
+                  className="form-label text-white-50 mb-1"
+                >
                   Full Name
                 </label>
                 <input
@@ -133,8 +138,11 @@ const Contact = () => {
                 />
               </div>
 
-              <div className="col-12">
-                <label htmlFor="email" className="form-label text-white-50">
+              <div className="col-12 mb-4">
+                <label
+                  htmlFor="email"
+                  className="form-label text-white-50 mb-1"
+                >
                   Email
                 </label>
                 <input
@@ -149,10 +157,10 @@ const Contact = () => {
                 />
               </div>
 
-              <div className="col-12">
+              <div className="col-12 mb-4">
                 <label
                   htmlFor="phoneNumber"
-                  className="form-label text-white-50"
+                  className="form-label text-white-50 mb-1"
                 >
                   Phone Number
                 </label>
@@ -168,8 +176,11 @@ const Contact = () => {
                 />
               </div>
 
-              <div className="col-12">
-                <label htmlFor="message" className="form-label text-white-50">
+              <div className="col-12 mb-4">
+                <label
+                  htmlFor="message"
+                  className="form-label text-white-50 mb-1"
+                >
                   Message
                 </label>
                 <textarea

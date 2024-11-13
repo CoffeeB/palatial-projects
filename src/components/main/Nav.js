@@ -5,7 +5,7 @@ const Nav = () => {
     <nav className="navbar navbar-expand-lg navbar-dark bg-black border-bottom position-fixed w-100 py-3 px-md-8 z-3">
       <div className="row d-flex m-0 w-100">
         <div className="d-flex col-auto">
-          <a className="navbar-brand" href="#">
+          <a className="navbar-brand" href="/#top">
             <Image
               src="https://framerusercontent.com/images/ZdKIt0n5znnTHaYeT2a0mUudo.png"
               alt="Logo"
@@ -16,7 +16,7 @@ const Nav = () => {
           </a>
         </div>
         <button
-          className="navbar-toggler ms-auto col-auto"
+          className="navbar-toggler ms-auto me-4 col-auto"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
@@ -46,7 +46,9 @@ const Nav = () => {
             href="#contact-us"
             role="button"
           >
-            <span className="text-black">Get in touch right away</span>
+            <span className="text-black fw-bold px-2">
+              Get in touch right away
+            </span>
             <i className="bx bx-chevron-right text-black" />
           </a>
         </div>

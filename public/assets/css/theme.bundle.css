@@ -4724,10 +4724,10 @@ fieldset:disabled .btn {
 }
 .navbar-dark,
 .navbar[data-bs-theme="dark"] {
-  --bs-navbar-color: hsl(204, 100%, 50%);
-  --bs-navbar-hover-color: hsla(0, 0%, 100%, 0.75);
+  --bs-navbar-color: hsl(0, 0%, 100%);
+  --bs-navbar-hover-color: hsl(204, 100%, 50%);
   --bs-navbar-disabled-color: hsla(0, 0%, 100%, 0.25);
-  --bs-navbar-active-color: #fff;
+  --bs-navbar-active-color: #0099ff;
   --bs-navbar-brand-color: #fff;
   --bs-navbar-brand-hover-color: #fff;
   --bs-navbar-toggler-border-color: hsla(0, 0%, 100%, 0.1);
