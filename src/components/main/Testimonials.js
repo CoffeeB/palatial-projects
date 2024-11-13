@@ -128,7 +128,7 @@ const Testimonials = () => {
                       </div>
                       <div className="card-body bg-secondary bg-opacity-25">
                         <p className="text-white mt-2">
-                          "{testimonial.testimony}"
+                          &rdquo; {testimonial.testimony} &ldquo;
                         </p>
                       </div>
                     </div>

@@ -44,7 +44,7 @@ export default function ServicesManagement() {
     };
 
     fetchServices();
-  }, [services]);
+  }, [services, stopFetch]);
 
   // Add a new service
   const handleAddService = async (newService) => {

@@ -105,12 +105,12 @@ const Contact = () => {
           </p>
           <div className="d-flex flex-column align-items-center">
             <p className="text-white-50 text-center col-6 d-lg-block d-none px-4 mb-0 fs-6">
-              We're here to help you take the first step toward your dream
+              We&apos;re here to help you take the first step toward your dream
               property.
             </p>
             <p className="text-white-50 text-center col-lg-5 col-md-7 px-4 mb-0 fs-6">
-              Contact us today for a free consultation and let’s discuss how we
-              can turn your vision into reality.
+              Contact us today for a free consultation and let&apos;s discuss
+              how we can turn your vision into reality.
             </p>
           </div>
         </div>

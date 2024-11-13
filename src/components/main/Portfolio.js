@@ -39,7 +39,7 @@ const Portfolio = () => {
     };
 
     fetchPortfolioData();
-  }, [cards]);
+  }, [cards, stopFetch]);
 
   const { ref, inView } = useInView({
     triggerOnce: true, // Trigger the animation only once

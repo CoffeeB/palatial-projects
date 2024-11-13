@@ -37,7 +37,7 @@ const PortfolioManager = () => {
     };
 
     fetchPortfolioData();
-  }, [sections]);
+  }, [sections, stopFetch]);
 
   const sortedSections = sections
     .filter((section) => {
