@@ -24,7 +24,7 @@ export default function ServiceCard({ title, imgSrc, index, description }) {
           if (img) img.style.opacity = 0;
         }}
       >
-        <h5 className="mb-0">{title}</h5>
+        <h5 className="mb-0 text-capitalize">{title}</h5>
       </div>
       {/* Image displayed above the collapsible content */}
       <div className=" position-absolute translate-middle-y end-0 z-2">

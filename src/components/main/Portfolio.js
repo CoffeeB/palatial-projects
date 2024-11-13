@@ -77,7 +77,9 @@ const Portfolio = () => {
                   <div className="card-body py-0">
                     {/* Title and Metadata */}
                     <div className="mb-3">
-                      <p className="fs-5 mb-0 fw-bold">{card.title}</p>
+                      <p className="fs-5 mb-0 fw-bold text-capitalize">
+                        {card.title}
+                      </p>
                     </div>
                     {/* Carousel */}
                     <div
@@ -138,7 +140,7 @@ const Portfolio = () => {
                         <span className="py-0 px-2 col-lg-8 text-truncate">
                           Location - {card.location}
                         </span>
-                        <div className="d-flex align-items-center ms-auto col-auto p-0">
+                        <div className="d-none d-md-flex align-items-center ms-auto col-auto p-0">
                           <button
                             type="button"
                             className="px-2 bg-transparent border-0 border-end"
