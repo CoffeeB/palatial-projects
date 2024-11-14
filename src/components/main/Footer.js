@@ -46,7 +46,7 @@ const Footer = () => {
         <div className="position-relative col-lg-4 pe-9">
           <Image
             decoding="async"
-            src="https://framerusercontent.com/images/ZdKIt0n5znnTHaYeT2a0mUudo.png"
+            src="/assets/img/inner_logo.png"
             alt="Palatial Projects Logo"
             className="img-fluid rounded col-auto"
             width={1080}

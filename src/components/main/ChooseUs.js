@@ -81,17 +81,17 @@ const ChooseUs = () => {
             <i className="bx bx-chevron-right text-black" />
           </a>
         </div>
-        <div className="row m-0">
+        <div className="row m-0 pb-10">
           {cards.map((card) => (
             <div
               ref={ref}
               key={card.id}
-              className={`col-lg-3 col-md-6 p-3 ${
+              className={`col-lg-3 col-md-6 py-1 px-1 ${
                 inView ? "animate-fadeInUp" : "opacity-0"
               }`}
             >
               <div className="card border-0 rounded-0 bg-black bg-opacity-25 h-100">
-                <div className="card-header border-0">
+                <div className="card-header border-0 p-3">
                   <Image
                     width={1080}
                     height={1080}
@@ -101,10 +101,19 @@ const ChooseUs = () => {
                     style={{ height: "auto" }}
                   />
                 </div>
-                <div className="card-body pt-0">
-                  <div className="row bg-black bg-opacity-25 m-0 px-3 pb-2">
-                    <p className="d-flex p-0 fs-6 fw-bold">{card.title}</p>
-                    <span className="p-0 col-lg-10">{card.description}</span>
+                <div className="card-body pt-0 p-3">
+                  <div className="row bg-black bg-opacity-25 m-0 px-3 py-3">
+                    <p className="d-flex p-0 fs-7 fw-medium">
+                      <Image
+                        width={500}
+                        height={500}
+                        src="/assets/img/choose_us_icon.svg"
+                        alt={`Icon for ${card.title}`}
+                        className="avatar avatar-xs rounded"
+                      />
+                      <span className="px-2">{card.title}</span>
+                    </p>
+                    <span className="p-0 fs-sm">{card.description}</span>
                   </div>
                 </div>
               </div>

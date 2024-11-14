@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 import { useInView } from "react-intersection-observer";
 
@@ -10,9 +11,18 @@ const About = () => {
   return (
     <div
       id="about-us"
-      className="d-flex bg-secondary bg-opacity-10 p-lg-10 px-md-3 p-1"
-      style={{ backgroundImage: "url(/assets/img/about_bg.png)" }}
+      className="d-flex bg-light bg-opacity-10 p-lg-10 px-md-3 p-1 position-relative"
     >
+      <Image
+        width={500}
+        height={500}
+        src={"/assets/img/about_pattern.svg"}
+        alt="pattern"
+        className={`position-absolute ms-n10 me-10 top-0 z-0 h-100 start-0  ${
+          inView ? "animate-fadeInUp" : "opacity-0"
+        }`}
+      />
+
       <div className="px-lg-10 row m-0">
         <p
           ref={ref}
@@ -20,12 +30,8 @@ const About = () => {
             inView ? "animate-fadeInUp" : "opacity-0"
           }`}
         >
-          <span className="row m-0 position-relative">
-            <span className="d-flex justify-content-between position-absolute top-0 w-100 px-0">
-              <i className="fs-4 fw-bold text-primary bx bxs-quote-left ms-n1" />
-              <i className="fs-4 fw-bold text-primary bx bxs-quote-right me-n1" />
-            </span>
-            <span>
+          <span className="row m-0">
+            <span className="lh-lg">
               At Palatial Projects, we blend creativity with functionality to
               transform visions into stunning architectural realities. With a
               commitment to excellence and a passion for design, our team of
@@ -35,6 +41,15 @@ const About = () => {
           </span>
         </p>
       </div>
+      <Image
+        width={500}
+        height={500}
+        src={"/assets/img/about_pattern.svg"}
+        alt="pattern"
+        className={`position-absolute me-n10 ms-10 top-0 z-0 h-100 end-0  ${
+          inView ? "animate-fadeInUp" : "opacity-0"
+        }`}
+      />
     </div>
   );
 };

@@ -74,6 +74,7 @@ const MediaUpload = ({ setImages }) => {
         <label className="form-label">Upload Image(s)</label>
         <input
           type="file"
+          disabled={uploading}
           accept="image/*"
           className="form-control"
           multiple
@@ -96,6 +97,7 @@ const MediaUpload = ({ setImages }) => {
               style={{ objectFit: "cover", borderRadius: "8px" }}
             />
             <button
+            disabled={uploading}
               className="btn btn-danger btn-sm position-absolute top-0 end-0"
               onClick={() => {
                 setSelectedFiles((prev) => prev.filter((_, i) => i !== index));

@@ -27,7 +27,7 @@ const HeroSection = () => {
           </h1>
           <p
             ref={ref}
-            className={`col-lg-4 col-md-7 py-2 ${
+            className={`col-lg-4 col-md-7 py-2 fs-6  ${
               inView ? "animate-fadeInUp" : "opacity-0"
             }`}
           >

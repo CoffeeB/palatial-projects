@@ -10,7 +10,7 @@ const PortfolioForm = ({ setIsAddingSection, addSection }) => {
   const [newYear, setNewYear] = useState("");
   const [newLocation, setNewLocation] = useState("");
   const [uploadedImages, setUploadedImages] = useState([]);
-  const [uploading, setUploading] = useState(false);
+  const [adding, setAdding] = useState(false);
 
   const handleCancel = () => {
     // Reset the form values and close the add section form
@@ -34,7 +34,7 @@ const PortfolioForm = ({ setIsAddingSection, addSection }) => {
       images: uploadedImages, // Array of image URLs
     };
 
-    setUploading(true);
+    setAdding(true);
     try {
       const response = await addPortfolioToDb(portfolioData);
 
@@ -54,7 +54,7 @@ const PortfolioForm = ({ setIsAddingSection, addSection }) => {
       console.log("Error uploading portfolio", error);
       enqueueSnackbar("Error uploading portfolio", { variant: "error" });
     } finally {
-      setUploading(false);
+      setAdding(false);
     }
   };
 
@@ -71,6 +71,7 @@ const PortfolioForm = ({ setIsAddingSection, addSection }) => {
           <input
             id="new-section-title"
             type="text"
+            disabled={adding}
             className="form-control"
             value={newSectionTitle}
             onChange={(e) => setNewSectionTitle(e.target.value)}
@@ -84,6 +85,7 @@ const PortfolioForm = ({ setIsAddingSection, addSection }) => {
           <input
             id="new-year"
             type="text"
+            disabled={adding}
             className="form-control"
             value={newYear}
             onChange={(e) => setNewYear(e.target.value)}
@@ -96,6 +98,7 @@ const PortfolioForm = ({ setIsAddingSection, addSection }) => {
           </label>
           <input
             id="new-location"
+            disabled={adding}
             type="text"
             className="form-control"
             value={newLocation}
@@ -110,10 +113,10 @@ const PortfolioForm = ({ setIsAddingSection, addSection }) => {
           <button
             className="btn btn-primary me-2"
             onClick={handleAddPortfolio}
-            disabled={uploading}
+            disabled={adding}
           >
             <span className="text-black">
-              {uploading ? "Adding..." : "Add Portfolio"}
+              {adding ? "Adding..." : "Add Portfolio"}
             </span>
           </button>
           <button className="btn btn-secondary" onClick={handleCancel}>

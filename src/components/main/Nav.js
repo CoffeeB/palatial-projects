@@ -8,7 +8,7 @@ const Nav = () => {
         <div className="d-flex col-auto">
           <Link className="navbar-brand" href="/#top">
             <Image
-              src="https://framerusercontent.com/images/ZdKIt0n5znnTHaYeT2a0mUudo.png"
+              src="/assets/img/inner_logo.png"
               alt="Logo"
               width={1080}
               height={1080}

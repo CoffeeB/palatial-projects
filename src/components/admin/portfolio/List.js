@@ -37,7 +37,7 @@ const PortfoliosList = ({
               <div className="card shadow shadow-light">
                 <div className="card-header border-1 border-light pb-3">
                   <div className="row m-0 align-items-center justify-content-between">
-                    <h5 className="px-0 col-md-8 col-6 mb-0 text-capitalize fw-light">
+                    <h5 className="px-0 col-md-8 col-6 mb-0 text-uppercase fw-light">
                       {section.title}
                     </h5>
                     <div className="row m-0 align-items-center col-auto">
@@ -64,7 +64,7 @@ const PortfoliosList = ({
                     &nbsp;
                     {section?.year}
                   </p>
-                  <p className="fs-5 text-capitalize text-info">
+                  <p className="fs-5 text-info text-uppercase">
                     <i className="bx bxs-location-plus"></i>
                     &nbsp;
                     {section.location}

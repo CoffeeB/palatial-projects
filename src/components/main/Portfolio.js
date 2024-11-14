@@ -74,19 +74,19 @@ const Portfolio = () => {
               </p>
             </>
           ) : (
-            cards.map((card) => (
+            cards.map((card, index) => (
               <div key={card._id} className="col-12 px-3">
                 <section className="card rounded-0 border-0">
                   <div className="card-body py-0">
                     {/* Title and Metadata */}
                     <div className="mb-3">
-                      <p className="fs-5 mb-0 fw-bold text-capitalize">
+                      <p className="fs-5 mb-0 fw-bold text-uppercase">
                         {card.title}
                       </p>
                     </div>
                     {/* Carousel */}
                     <div
-                      id={`carousel-${card.id}`}
+                      id={`carousel-${index}-${card.id}`}
                       className="carousel slide"
                       data-bs-ride="carousel"
                     >
@@ -110,28 +110,34 @@ const Portfolio = () => {
                       </div>
 
                       {/* Carousel Controls */}
-                      <div
-                        className="carousel-control-prev d-md-none"
-                        data-bs-target={`#carousel-${card.id}`}
-                        data-bs-slide="prev"
-                      >
-                        <i
-                          className="bx bx-chevron-left bg-black bg-opacity-75 p-3 text-white rounded-circle"
-                          type="button"
-                          aria-label="Previous"
-                        />
-                      </div>
-                      <div
-                        className="carousel-control-next d-md-none"
-                        data-bs-target={`#carousel-${card.id}`}
-                        data-bs-slide="next"
-                      >
-                        <i
-                          className="bx bx-chevron-right bg-black bg-opacity-75 p-3 text-white rounded-circle"
-                          type="button"
-                          aria-label="Next"
-                        />
-                      </div>
+                      {card.images.length > 1 ? (
+                        <>
+                          <div
+                            className="carousel-control-prev d-md-none"
+                            data-bs-target={`#carousel-${index}-${card.id}`}
+                            data-bs-slide="prev"
+                          >
+                            <i
+                              className="bx bx-chevron-left bg-black bg-opacity-75 p-3 text-white rounded-circle"
+                              type="button"
+                              aria-label="Previous"
+                            />
+                          </div>
+                          <div
+                            className="carousel-control-next d-md-none"
+                            data-bs-target={`#carousel-${index}-${card.id}`}
+                            data-bs-slide="next"
+                          >
+                            <i
+                              className="bx bx-chevron-right bg-black bg-opacity-75 p-3 text-white rounded-circle"
+                              type="button"
+                              aria-label="Next"
+                            />
+                          </div>
+                        </>
+                      ) : (
+                        ""
+                      )}
                     </div>
 
                     {/* Footer with navigation chevrons */}
@@ -140,27 +146,31 @@ const Portfolio = () => {
                         <span className="p-0 pe-2 border-0 border-end col-auto">
                           Year - {card.year}
                         </span>
-                        <span className="py-0 px-2 col-lg-8 text-truncate">
+                        <span className="py-0 px-2 col-lg-8 text-truncate text-uppercase">
                           Location - {card.location}
                         </span>
-                        <div className="d-none d-md-flex align-items-center ms-auto col-auto p-0">
-                          <button
-                            type="button"
-                            className="px-2 bg-transparent border-0 border-end"
-                            data-bs-target={`#carousel-${card.id}`}
-                            data-bs-slide="prev"
-                          >
-                            <i className="bx bxs-chevron-left rounded-circle btn-outline-primary btn bg-white text-black" />
-                          </button>
-                          <button
-                            type="button"
-                            className="px-2 bg-transparent border-0"
-                            data-bs-target={`#carousel-${card.id}`}
-                            data-bs-slide="next"
-                          >
-                            <i className="bx bxs-chevron-right rounded-circle btn-outline-primary btn bg-white text-black" />
-                          </button>
-                        </div>
+                        {card.images.length > 1 ? (
+                          <div className="d-none d-md-flex align-items-center ms-auto col-auto p-0">
+                            <button
+                              type="button"
+                              className="px-2 bg-transparent border-0 border-end"
+                              data-bs-target={`#carousel-${index}-${card.id}`}
+                              data-bs-slide="prev"
+                            >
+                              <i className="bx bxs-chevron-left rounded-circle btn-outline-primary btn bg-white text-black" />
+                            </button>
+                            <button
+                              type="button"
+                              className="px-2 bg-transparent border-0"
+                              data-bs-target={`#carousel-${index}-${card.id}`}
+                              data-bs-slide="next"
+                            >
+                              <i className="bx bxs-chevron-right rounded-circle btn-outline-primary btn bg-white text-black" />
+                            </button>
+                          </div>
+                        ) : (
+                          ""
+                        )}
                       </div>
                     </div>
                   </div>

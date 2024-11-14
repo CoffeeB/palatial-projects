@@ -27,7 +27,8 @@ const Services = () => {
         const result = await response.json();
 
         if (result?.success) {
-          console.log(result?.data);
+          console.log("result from fetch, ",result?.data);
+          setServices(result?.data)
           setStopFetch(true);
         } else {
           enqueueSnackbar(result?.message || "Failed to fetch services", {
