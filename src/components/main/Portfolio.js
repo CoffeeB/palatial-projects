@@ -50,7 +50,7 @@ const Portfolio = () => {
       <div
         ref={ref}
         className={`row m-0 justify-content-center ${
-          inView ? "animate-fadeInUp" : "opacity-0"
+          inView ? "animate-fadeInUp" : ""
         }`}
       >
         <p className="bg-primary rounded-5 p-2 bg-opacity-25 d-flex align-items-center col-auto">
@@ -62,10 +62,7 @@ const Portfolio = () => {
         </p>
       </div>
 
-      <div
-        ref={ref}
-        className={`py-6 ${inView ? "animate-fadeInUp" : "opacity-0"}`}
-      >
+      <div ref={ref} className={`py-6 ${inView ? "animate-fadeInUp" : ""}`}>
         <div className="row m-0">
           {cards?.length === 0 ? (
             <>

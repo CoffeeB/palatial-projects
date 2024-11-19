@@ -111,7 +111,7 @@ const ChooseUs = () => {
                         alt={`Icon for ${card.title}`}
                         className="avatar avatar-xs rounded"
                       />
-                      <span className="px-2">{card.title}</span>
+                      <span className="px-2 fs-6">{card.title}</span>
                     </p>
                     <span className="p-0 fs-sm">{card.description}</span>
                   </div>

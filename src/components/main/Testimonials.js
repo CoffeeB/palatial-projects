@@ -5,33 +5,33 @@ import { useInView } from "react-intersection-observer";
 const testimonials = [
   {
     id: 1,
-    name: "John Doe",
-    position: "CEO, Example Corp.",
-    avatar: "/assets/img/Hero_Section_Image.jpg", // Avatar image URL
+    name: "Chief Olatoye Oladunjoye",
+    position: "",
+    avatar: "/assets/img/Blank_Profile.jpg", // Avatar image URL
     testimony:
       "Choosing Projects was the best decision we made. Their attention to detail and commitment to excellence is unparalleled.",
   },
   {
     id: 2,
-    name: "Jane Smith",
-    position: "Project Manager, Tech Innovations",
-    avatar: "/assets/img/Hero_Section_Image.jpg",
+    name: "Dr Akintola Badmus",
+    position: "",
+    avatar: "/assets/img/Blank_Profile.jpg",
     testimony:
       "We were thrilled with the results. Their team guided us throughout the process, and the outcome exceeded our expectations.",
   },
   {
     id: 3,
-    name: "Michael Brown",
-    position: "Founder, Green Builders",
-    avatar: "/assets/img/Hero_Section_Image.jpg",
+    name: "Mr AbdulRasaq Iyiola",
+    position: "",
+    avatar: "/assets/img/Blank_Profile.jpg",
     testimony:
       "The team at Projects understood our vision and delivered a solution that was both functional and aesthetically pleasing.",
   },
   {
     id: 4,
-    name: "Emily White",
-    position: "Architect, Urban Designs",
-    avatar: "/assets/img/Hero_Section_Image.jpg",
+    name: "Dr Stephen Nnamdi",
+    position: "",
+    avatar: "/assets/img/Blank_Profile.jpg",
     testimony:
       "Their professionalism and quality of work made this collaboration seamless. Highly recommended for any construction project.",
   },
@@ -111,7 +111,7 @@ const Testimonials = () => {
                     }`}
                   >
                     <div className="card bg-black rounded-0 shadow-sm h-100 p-5 ">
-                      <div className="card-header p-0 border-0">
+                      <div className="card-header p-0 pb-2 border-0">
                         <div className="row align-items-center m-0">
                           <Image
                             src={testimonial.avatar}

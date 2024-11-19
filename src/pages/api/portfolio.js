@@ -10,13 +10,23 @@ export default async function handler(req, res) {
       // Fetch all portfolio sections
       try {
         const portfolios = await db.collection("portfolios").find({}).toArray();
-        return res.status(200).json({ success: true, data: portfolios });
+        if (portfolios.length === 0) {
+          return res.status(404).json({
+            success: false,
+            message: "No portfolio sections found.",
+          });
+        }
+        return res.status(200).json({
+          success: true,
+          message: "Portfolios fetched successfully.",
+          data: portfolios,
+        });
       } catch (error) {
         console.error(error);
         return res.status(500).json({
           success: false,
-          message: "Failed to fetch portfolios",
-          error: error.message, // Include error details for debugging
+          message: "Failed to fetch portfolios.",
+          error: error.message,
         });
       }
 
@@ -27,7 +37,7 @@ export default async function handler(req, res) {
         if (!title || !year || !location || !images || images.length === 0) {
           return res.status(400).json({
             success: false,
-            message: "All fields are required.",
+            message: "All fields (title, year, location, images) are required.",
           });
         }
 
@@ -41,14 +51,15 @@ export default async function handler(req, res) {
 
         return res.status(201).json({
           success: true,
-          data: { ...req.body, _id: result.insertedId.toString() }, // Include the new ID
+          message: "Portfolio section created successfully.",
+          data: { ...req.body, _id: result.insertedId.toString() },
         });
       } catch (error) {
         console.error(error);
         return res.status(500).json({
           success: false,
-          message: "Internal Server Error",
-          error: error.message, // Include error details for debugging
+          message: "Internal server error while creating portfolio section.",
+          error: error.message,
         });
       }
 
@@ -58,31 +69,31 @@ export default async function handler(req, res) {
       if (!id || !ObjectId.isValid(id)) {
         return res.status(400).json({
           success: false,
-          message: "Invalid or missing ID",
+          message: "Invalid or missing ID.",
         });
       }
       try {
-        const result = await db
-          .collection("portfolios")
-          .deleteOne({ _id: new ObjectId(id) });
+        const result = await db.collection("portfolios").deleteOne({
+          _id: new ObjectId(id),
+        });
 
         if (result.deletedCount === 0) {
           return res.status(404).json({
             success: false,
-            message: "Portfolio section not found",
+            message: "Portfolio section not found.",
           });
         }
 
         return res.status(200).json({
           success: true,
-          message: "Portfolio section deleted successfully",
+          message: "Portfolio section deleted successfully.",
         });
       } catch (error) {
         console.error(error);
         return res.status(500).json({
           success: false,
-          message: "Failed to delete portfolio section",
-          error: error.message, // Include error details for debugging
+          message: "Failed to delete portfolio section.",
+          error: error.message,
         });
       }
 
@@ -92,7 +103,7 @@ export default async function handler(req, res) {
       if (!sectionId || !ObjectId.isValid(sectionId) || !imageUrl) {
         return res.status(400).json({
           success: false,
-          message: "Invalid data: sectionId and imageUrl are required",
+          message: "Invalid data: sectionId and imageUrl are required.",
         });
       }
       try {
@@ -106,20 +117,20 @@ export default async function handler(req, res) {
         if (result.modifiedCount === 0) {
           return res.status(404).json({
             success: false,
-            message: "Portfolio section not found or image not removed",
+            message: "Portfolio section not found or image not removed.",
           });
         }
 
         return res.status(200).json({
           success: true,
-          message: "Image removed from portfolio section",
+          message: "Image removed from portfolio section.",
         });
       } catch (error) {
         console.error(error);
         return res.status(500).json({
           success: false,
-          message: "Failed to remove image",
-          error: error.message, // Include error details for debugging
+          message: "Failed to remove image from portfolio section.",
+          error: error.message,
         });
       }
 
@@ -129,14 +140,14 @@ export default async function handler(req, res) {
       if (!updateId || !ObjectId.isValid(updateId)) {
         return res.status(400).json({
           success: false,
-          message: "Invalid or missing section ID",
+          message: "Invalid or missing section ID.",
         });
       }
       if (!title && !year && !location && !images) {
         return res.status(400).json({
           success: false,
           message:
-            "At least one field (title, year, location, images) must be provided to update",
+            "At least one field (title, year, location, images) must be provided to update.",
         });
       }
 
@@ -154,27 +165,27 @@ export default async function handler(req, res) {
         if (result.modifiedCount === 0) {
           return res.status(404).json({
             success: false,
-            message: "Portfolio section not found or no changes made",
+            message: "Portfolio section not found or no changes were made.",
           });
         }
 
         return res.status(200).json({
           success: true,
-          message: "Portfolio section updated successfully",
+          message: "Portfolio section updated successfully.",
         });
       } catch (error) {
         console.error(error);
         return res.status(500).json({
           success: false,
-          message: "Failed to update portfolio section",
-          error: error.message, // Include error details for debugging
+          message: "Failed to update portfolio section.",
+          error: error.message,
         });
       }
 
     default:
       return res.status(405).json({
         success: false,
-        message: "Method Not Allowed",
+        message: "Method Not Allowed.",
       });
   }
 }
