@@ -107,7 +107,7 @@ const Testimonials = () => {
           <div className="position-relative w-100">
             {/* Carousel Section */}
             <div
-              className="carousel-container overflow-hidden row flex-nowrap align-items-center h-100"
+              className="carousel-container m-0 overflow-hidden row flex-nowrap align-items-center h-100"
               ref={carouselRef}
               style={{ scrollBehavior: "smooth" }}
             >
