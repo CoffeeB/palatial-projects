@@ -54,15 +54,17 @@ const ChooseUs = () => {
           }`}
         >
           <div className="row m-0 flex-md-row flex-column align-items-center">
-            <p
-              ref={ref}
-              className={`bg-primary rounded-5 p-2 bg-opacity-25 d-flex align-items-center col-auto ${
-                inView ? "animate-fadeInUp" : "opacity-0"
-              }`}
-            >
-              <i className="bx bxs-circle fs-sm" />
-              &nbsp; Why Choose Us?
-            </p>
+            <div className="col-auto">
+              <p
+                ref={ref}
+                className={`bg-primary rounded-5 p-2 bg-opacity-25 d-flex align-items-center col-auto ${
+                  inView ? "animate-fadeInUp" : "opacity-0"
+                }`}
+              >
+                <i className="bx bxs-circle fs-sm" />
+                &nbsp; Why Choose Us?
+              </p>
+            </div>
             <h1 className="text-uppercase text-md-start text-center fs-4 fw-medium mb-3">
               Building Trust, One Project at a Time
             </h1>

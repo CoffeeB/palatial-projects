@@ -80,10 +80,12 @@ const Testimonials = () => {
       >
         <div className="d-flex flex-md-row flex-column align-items-center px-2">
           <div className="row m-0 flex-md-row flex-column align-items-center">
-            <p className="bg-primary rounded-5 p-2 bg-opacity-25 d-flex align-items-center col-auto">
-              <i className="bx bxs-circle fs-sm" />
-              &nbsp; Testimonials
-            </p>
+            <div className="col-auto">
+              <p className="bg-primary rounded-5 p-2 bg-opacity-25 d-flex align-items-center col-auto">
+                <i className="bx bxs-circle fs-sm" />
+                &nbsp; Testimonials
+              </p>
+            </div>
             <p className="text-uppercase text-md-start text-center fs-5">
               Hear from SOME OF Our Satisfied Clients
             </p>
