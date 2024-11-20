@@ -29,7 +29,7 @@ const testimonials = [
   },
   {
     id: 4,
-    name: "Dr Stephen Nnamdi",
+    name: "Dr Stephen Nnamdi",
     position: "",
     avatar: "/assets/img/Blank_Profile.jpg",
     testimony:
@@ -41,10 +41,19 @@ const Testimonials = () => {
   const [activeIndex, setActiveIndex] = useState(0); // Track active testimonial index
   const carouselRef = useRef(null);
 
+  // Function to scroll carousel and update active index
   const scrollCarousel = (direction) => {
     if (carouselRef.current) {
-      const scrollAmount = 300; // The amount to scroll on each button click
-      carouselRef.current.scrollLeft += direction * scrollAmount;
+      const cardWidth = carouselRef.current.children[0].offsetWidth; // Get the width of a single card
+      const scrollAmount = cardWidth; // Move by one card width
+      const newScrollLeft =
+        carouselRef.current.scrollLeft + direction * scrollAmount;
+
+      carouselRef.current.scrollLeft = newScrollLeft;
+
+      // Calculate new active index based on scroll position
+      const newIndex = Math.round(newScrollLeft / cardWidth); // Round to the nearest card index
+      setActiveIndex(newIndex);
     }
   };
 
@@ -58,7 +67,7 @@ const Testimonials = () => {
 
   const { ref, inView } = useInView({
     triggerOnce: true, // Trigger the animation only once
-    threshold: 0.3, // Trigger when 50% of the section is in view
+    threshold: 0.3, // Trigger when 30% of the section is in view
   });
 
   return (
@@ -110,7 +119,7 @@ const Testimonials = () => {
                       inView ? "animate-fadeInUp" : "opacity-0"
                     }`}
                   >
-                    <div className="card bg-black rounded-0 shadow-sm h-100 p-5 ">
+                    <div className="card bg-black rounded-0 shadow-sm h-100 p-5">
                       <div className="card-header p-0 pb-2 border-0">
                         <div className="row align-items-center m-0">
                           <Image
@@ -118,7 +127,7 @@ const Testimonials = () => {
                             alt={`Avatar of ${testimonial.name}`}
                             width={1080}
                             height={1080}
-                            className="rounded-circle avatar avatar-xl col-auto p-0"
+                            className="rounded-circle avatar avatar-md col-auto p-0"
                           />
                           <div className="col-10">
                             <p className="fs-5 fw-bold mt-3 mb-0">

@@ -1,10 +1,36 @@
 import Image from "next/image";
 import { useSnackbar } from "notistack";
-import React, { useEffect, useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
 const Portfolio = () => {
   const [cards, setCards] = useState([]);
+  const [activeIndex, setActiveIndex] = useState(0); // Active index state
+  const carouselRefs = useRef([]); // Keep track of each carousel's ref
+
+  // Function to scroll carousel and update active index
+  const scrollCarousel = (direction, index) => {
+    if (carouselRefs.current[index]) {
+      const cardWidth = carouselRefs.current[index].children[0].offsetWidth; // Get the width of a single card
+      const scrollAmount = cardWidth; // Move by one card width
+      const newScrollLeft =
+        carouselRefs.current[index].scrollLeft + direction * scrollAmount;
+
+      carouselRefs.current[index].scrollLeft = newScrollLeft;
+
+      // Calculate new active index based on scroll position
+      const newIndex = Math.round(newScrollLeft / cardWidth); // Round to the nearest card index
+      setActiveIndex(newIndex);
+    }
+  };
+
+  const scrollToCard = (index, cardIndex) => {
+    if (carouselRefs.current[cardIndex]) {
+      const cardWidth = carouselRefs.current[cardIndex].children[0].offsetWidth;
+      carouselRefs.current[cardIndex].scrollLeft = cardWidth * index;
+      setActiveIndex(index); // Update active index when jumping to specific card
+    }
+  };
 
   const [stopFetch, setStopFetch] = useState(false);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -30,15 +56,15 @@ const Portfolio = () => {
           setCards(result?.data);
           setStopFetch(true);
         } else {
-          enqueueSnackbar(result?.message || "Failed to fetch services", {
+          enqueueSnackbar(result?.message || "Failed to fetch portfolio", {
             variant: "error",
           });
         }
       } catch (error) {
-        enqueueSnackbar("Failed to fetch services. Please try again.", {
+        enqueueSnackbar("Failed to fetch portfolio. Please try again.", {
           variant: "error",
         });
-        console.error("Failed to fetch services:- ", error);
+        console.error("Failed to fetch portfolio:- ", error);
       }
     };
 
@@ -65,11 +91,9 @@ const Portfolio = () => {
       <div ref={ref} className={`py-6 ${inView ? "animate-fadeInUp" : ""}`}>
         <div className="row m-0">
           {cards?.length === 0 ? (
-            <>
-              <p className="mb-0 text-center text-white-50 fs-4">
-                Nothing to show here yet
-              </p>
-            </>
+            <p className="mb-0 text-center text-white-50 fs-4">
+              Nothing to show here yet
+            </p>
           ) : (
             cards.map((card, index) => (
               <div key={card._id} className="col-12 px-3">
@@ -82,58 +106,62 @@ const Portfolio = () => {
                       </p>
                     </div>
                     {/* Carousel */}
-                    <div
-                      id={`carousel-${index}-${card.id}`}
-                      className="carousel slide"
-                      data-bs-ride="carousel"
-                    >
-                      <div className="carousel-inner">
-                        {card.images.map((image, index) => (
-                          <div
-                            key={index}
-                            className={`carousel-item ${
-                              index === 0 ? "active" : ""
-                            }`}
-                          >
-                            <Image
-                              width={500}
-                              height={500}
-                              src={image.secure_url}
-                              alt={`Image for ${card.title}`}
-                              className="d-block w-100"
-                            />
+                    <div id={`carousel-${index}-${card.id}`}>
+                      <div
+                        className="carousel-container overflow-hidden row flex-nowrap align-items-center h-100"
+                        ref={(el) => (carouselRefs.current[index] = el)}
+                        style={{ scrollBehavior: "smooth" }}
+                      >
+                        {card.images.map((image, imageIndex) => (
+                          <div className="col-auto p-0 h-100" key={imageIndex}>
+                            <div
+                              ref={ref}
+                              className={`p-0  ${
+                                inView ? "animate-fadeInUp" : ""
+                              }`}
+                            >
+                              <div className="card border-0 rounded-0 h-100 p-0">
+                                <div className="card-body p-0">
+                                  <Image
+                                    src={image.secure_url}
+                                    alt={`Image of ${card.title}`}
+                                    width={500}
+                                    height={500}
+                                    className="col-auto p-0"
+                                  />
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         ))}
                       </div>
 
                       {/* Carousel Controls */}
-                      {card.images.length > 1 ? (
+                      {card.images.length > 1 && (
                         <>
+                          {/* Prev Button */}
                           <div
                             className="carousel-control-prev d-md-none"
-                            data-bs-target={`#carousel-${index}-${card.id}`}
-                            data-bs-slide="prev"
+                            type="button"
+                            onClick={() => scrollCarousel(-1, index)}
                           >
                             <i
                               className="bx bx-chevron-left bg-black bg-opacity-75 p-3 text-white rounded-circle"
-                              type="button"
                               aria-label="Previous"
                             />
                           </div>
+                          {/* Next Button */}
                           <div
                             className="carousel-control-next d-md-none"
-                            data-bs-target={`#carousel-${index}-${card.id}`}
-                            data-bs-slide="next"
+                            type="button"
+                            onClick={() => scrollCarousel(1, index)}
                           >
                             <i
                               className="bx bx-chevron-right bg-black bg-opacity-75 p-3 text-white rounded-circle"
-                              type="button"
                               aria-label="Next"
                             />
                           </div>
                         </>
-                      ) : (
-                        ""
                       )}
                     </div>
 
@@ -146,27 +174,23 @@ const Portfolio = () => {
                         <span className="py-0 px-2 col-lg-8 text-truncate text-uppercase">
                           Location - {card.location}
                         </span>
-                        {card.images.length > 1 ? (
+                        {card.images.length > 1 && (
                           <div className="d-none d-md-flex align-items-center ms-auto col-auto p-0">
                             <button
                               type="button"
                               className="px-2 bg-transparent border-0 border-end"
-                              data-bs-target={`#carousel-${index}-${card.id}`}
-                              data-bs-slide="prev"
+                              onClick={() => scrollCarousel(-1, index)}
                             >
                               <i className="bx bxs-chevron-left rounded-circle btn-outline-primary btn bg-white text-black" />
                             </button>
                             <button
                               type="button"
                               className="px-2 bg-transparent border-0"
-                              data-bs-target={`#carousel-${index}-${card.id}`}
-                              data-bs-slide="next"
+                              onClick={() => scrollCarousel(1, index)}
                             >
                               <i className="bx bxs-chevron-right rounded-circle btn-outline-primary btn bg-white text-black" />
                             </button>
                           </div>
-                        ) : (
-                          ""
                         )}
                       </div>
                     </div>
