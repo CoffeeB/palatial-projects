@@ -108,7 +108,7 @@ const Portfolio = () => {
                     {/* Carousel */}
                     <div id={`carousel-${index}-${card.id}`}>
                       <div
-                        className="carousel-container overflow-hidden row flex-nowrap align-items-center h-100"
+                        className="carousel-container m-0 overflow-hidden row flex-nowrap align-items-center h-100"
                         ref={(el) => (carouselRefs.current[index] = el)}
                         style={{ scrollBehavior: "smooth" }}
                       >
