@@ -78,7 +78,9 @@ const Services = () => {
               <div
                 ref={ref}
                 key={`.card-${index}`}
-                className={`${inView ? "animate-fadeInUp" : "opacity-0"} mb-10`}
+                className={`${
+                  inView ? "animate-fadeInUp" : "opacity-0"
+                } mb-lg-10`}
               >
                 <ServiceCard
                   key={index}

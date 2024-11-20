@@ -30,7 +30,7 @@ const SlidingSection = () => {
     <div className="slider-container shadow-inner w-100 position-relative bg-secondary bg-opacity-10 overflow-hidden">
       <div
         ref={sliderRef}
-        className="d-flex slider row m-0 flex-nowrap"
+        className="d-flex slider m-0 flex-nowrap"
         style={{ animationDuration }}
       >
         {/* Duplicate the content to enable a smooth loop */}
@@ -42,7 +42,7 @@ const SlidingSection = () => {
               className="slide px-0 fs-6 d-flex flex-row col-auto"
               key={`slide-${index}-1`}
             >
-              <p className={`m-1 text-white fs-4 p-5`}>
+              <p className={`m-1 text-white fs-lg-4 p-5`}>
                 Architecture reimagined
               </p>
               <Image
@@ -52,7 +52,7 @@ const SlidingSection = () => {
                 alt="Arrow"
                 className="mx-1"
               />
-              <p className={`m-1 text-white fs-4 p-5`}>Palatial Projects</p>
+              <p className={`m-1 text-white fs-lg-4 p-5`}>Palatial Projects</p>
               <Image
                 width={50}
                 height={50}
@@ -67,7 +67,7 @@ const SlidingSection = () => {
               className="slide px-0 fs-6 d-flex flex-row col-auto"
               key={`slide-${index}-2`}
             >
-              <p className={`m-1 text-white fs-4 p-5`}>
+              <p className={`m-1 text-white fs-lg-4 p-5`}>
                 Architecture reimagined
               </p>
               <Image
@@ -77,7 +77,7 @@ const SlidingSection = () => {
                 alt="Arrow"
                 className="mx-1"
               />
-              <p className={`m-1 text-white fs-4 p-5`}>Palatial Projects</p>
+              <p className={`m-1 text-white fs-lg-4 p-5`}>Palatial Projects</p>
               <Image
                 width={50}
                 height={50}
@@ -92,7 +92,7 @@ const SlidingSection = () => {
               className="slide px-0 fs-6 d-flex flex-row col-auto"
               key={`slide-${index}-3`}
             >
-              <p className={`m-1 text-white fs-4 p-5`}>
+              <p className={`m-1 text-white fs-lg-4 p-5`}>
                 Architecture reimagined
               </p>
               <Image
@@ -102,7 +102,7 @@ const SlidingSection = () => {
                 alt="Arrow"
                 className="mx-1"
               />
-              <p className={`m-1 text-white fs-4 p-5`}>Palatial Projects</p>
+              <p className={`m-1 text-white fs-lg-4 p-5`}>Palatial Projects</p>
               <Image
                 width={50}
                 height={50}
@@ -117,7 +117,7 @@ const SlidingSection = () => {
               className="slide px-0 fs-6 d-flex flex-row col-auto"
               key={`slide-${index}-4`}
             >
-              <p className={`m-1 text-white fs-4 p-5`}>
+              <p className={`m-1 text-white fs-lg-4 p-5`}>
                 Architecture reimagined
               </p>
               <Image
@@ -127,7 +127,7 @@ const SlidingSection = () => {
                 alt="Arrow"
                 className="mx-1"
               />
-              <p className={`m-1 text-white fs-4 p-5`}>Palatial Projects</p>
+              <p className={`m-1 text-white fs-lg-4 p-5`}>Palatial Projects</p>
               <Image
                 width={50}
                 height={50}

@@ -113,7 +113,10 @@ const Portfolio = () => {
                         style={{ scrollBehavior: "smooth" }}
                       >
                         {card.images.map((image, imageIndex) => (
-                          <div className="col-auto p-0 h-100" key={imageIndex}>
+                          <div
+                            className="col-md-auto col-12 p-0 h-100"
+                            key={imageIndex}
+                          >
                             <div
                               ref={ref}
                               className={`p-0  ${
