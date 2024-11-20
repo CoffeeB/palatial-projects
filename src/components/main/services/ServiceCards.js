@@ -51,7 +51,7 @@ export default function ServiceCard({ title, imgSrc, index, description }) {
         data-bs-parent="#servicesAccordion"
       >
         <div className="card-body pt-0">
-          <div className="mt-3 fs-lg-5 opacity-75">{description}</div>
+          <div className="mt-3 fs-lg-5 opacity-75 col-md-10">{description}</div>
         </div>
       </div>
     </div>
