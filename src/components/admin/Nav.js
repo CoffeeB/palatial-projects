@@ -28,7 +28,7 @@ const Nav = () => {
           </a>
         </div>
         <button
-          className="navbar-toggler ms-auto col-auto"
+          className="navbar-toggler ms-auto col-auto me-5"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"

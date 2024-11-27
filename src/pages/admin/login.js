@@ -76,7 +76,7 @@ export default function AdminLogin() {
         <div className="card-body">
           <form onSubmit={handleLogin}>
             <div className="mb-3">
-              <label htmlFor="email" className="form-label text-dark">
+              <label htmlFor="email" className="form-label text-white-50">
                 Email
               </label>
               <input
@@ -89,7 +89,7 @@ export default function AdminLogin() {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="password" className="form-label text-dark">
+              <label htmlFor="password" className="form-label text-white-50">
                 Password
               </label>
               <div className="position-relative">
